@@ -5,8 +5,8 @@ mem = Ler_memoria()
 
 lista_inodes = []
 
-for i, mem in enumerate(mem): # Função que busca os Inodes que estão salvos na memória
-    if "Inodes" in mem:
+for i, mem in enumerate(mem): 
+    if "Inodes" in mem: # Função que busca os Inodes que estão salvos na memória
         temp = mem.split("|")
         temp.pop(0)
         for i, temp in enumerate(temp):
@@ -29,7 +29,7 @@ for i, mem in enumerate(mem): # Função que busca os Inodes que estão salvos n
             print(lista_inodes[0].criador)
             print(lista_inodes[0].dono)
             print(lista_inodes[0].ponteiros_iNodes)
-        
+    
 
 def criar_arquivo(nome):
     lista_inodes.append(Inode(nome, "eu"))
