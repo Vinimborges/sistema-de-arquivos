@@ -7,4 +7,4 @@ def criar_disco(nome_disco, tamanho_mb):
             disco.write(f'\n')
             qtd_blocos -= 1
 # Criar um "disco" de 256 MB
-criar_disco("Disco.txt", 256)
+criar_disco("disco.txt", 256)

@@ -1,4 +1,4 @@
 def Ler_memoria():
-    with open("Disco.txt", "r") as disco:
+    with open("disco.txt", "r") as disco:
         memoria = disco.readlines()
         return memoria

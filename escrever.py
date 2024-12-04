@@ -8,4 +8,4 @@ def escrever_em_bloco(nome_disco, numero_bloco, conteudo, tamanho_bloco):
         disco.write(conteudo_binario)
 
 # Escrever "Olá Mundo" no bloco 0
-escrever_em_bloco("Disco.txt", 100, "Inodes|arquivo,eu,eu,10,10/10/10,10/10/10,nenhuma,nenhum,nenhum", 4096)
+escrever_em_bloco("disco.txt", 0, "SuperBlock|", 4096)
