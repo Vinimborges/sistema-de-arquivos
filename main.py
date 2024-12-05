@@ -4,10 +4,14 @@ from ler_memoria import Ler_memoria
 mem = Ler_memoria()
 
 lista_inodes = []
-
-for i, mem in enumerate(mem): 
-    if "Inodes" in mem: # Função que busca os Inodes que estão salvos na memória
+espaco_livre = 0
+index_inicio_inodes = 10000000
+for i, mem in enumerate(mem):
+    if "Inodes" in mem or (mem[0] != '\x00' and i > 0): # Função que busca os Inodes que estão salvos na memória
+        if "Inodes" in mem:
+            index_inicio_inodes = i
         temp = mem.split("|")
+        print(temp)
         temp.pop(0)
         for i, temp in enumerate(temp):
             temp1 = temp.split(",")
@@ -20,16 +24,20 @@ for i, mem in enumerate(mem):
             inode.data_de_modificacao = temp1.pop(0)
             inode.permissoes = temp1.pop(0)
             inode.ponteiros_blocos = temp1.pop(0)
-            if "0" in temp1[0]:
-                tirar_zeros = temp1[0].split("0")
+            if "\x00" in temp1[0]:
+                tirar_zeros = temp1[0].split("\x00")
                 print(tirar_zeros[0])
-                inode.ponteiros_iNodes = tirar_zeros[0]
-            print(temp1)
+                inode.ponteiros_iNodes = tirar_zeros.pop(0)
+            print(tirar_zeros)
             lista_inodes.append(inode)
             print(lista_inodes[0].criador)
             print(lista_inodes[0].dono)
             print(lista_inodes[0].ponteiros_iNodes)
-    
+    elif i > index_inicio_inodes and mem[0] == "\x00":
+        espaco_livre += 4
+
+print(f'Espaço livre para armazenamento: {espaco_livre//1028} MB')
+        
 
 def criar_arquivo(nome):
     lista_inodes.append(Inode(nome, "eu"))
