@@ -94,7 +94,6 @@ def tratar_entrada(read):
     elif "cd" in read:  # mover para o bloco do iNode selecionado da lista de iNodes (. permanece no mesmo diretorio, .. move um diretorio para tras)
         print(f'Diretório {nome[1]} selecionado')
             
-    # Bia
     elif "kill" in read: # encerra o programa           
         print("Programa encerrado")
         return "kill"
