@@ -35,15 +35,17 @@ def escrever_controle_de_blocos(nome_disco):
         posicao = 0
         aux = 0
         disco.seek(0)
-        while(aux<60000):
+        while(aux<=60000):
             temp = list(conteudo_disco[posicao])
             for i in range(len(temp)):
                 aux += 1
-                if aux >= 60000:
+                if aux > 60000:
                     break
                 if temp[i] == '\x00':
                     temp[i] = '0'
                     print(f'Escreveu o {aux}')
+                elif temp[i] == '\n':
+                    aux -= 1
             conteudo_disco[posicao] = ''.join(temp)
             posicao += 1
         for i, text in enumerate(conteudo_disco):
@@ -51,6 +53,6 @@ def escrever_controle_de_blocos(nome_disco):
             
 # Escrever "Olá Mundo" no bloco 0
 # escrever_em_bloco("disco.txt", 0, "SuperBlock|", 4096)
-escrever_em_bloco("disco.txt", 100, "Inodes|", 4096)
-# escrever_em_bloco("disco.txt", 100, "arquivo1,eu,eu,10,10/10/10,10/10/10,nenhuma,nenhum,nenhum", 4096)
-escrever_controle_de_blocos("disco.txt")
+# escrever_em_bloco("../disco.txt", 100, "Inodes|", 4096)
+# escrever_em_bloco("../disco.txt", 100, "arquivo1,eu,eu,10,10/10/10,10/10/10,nenhuma,nenhum,nenhum|", 4096)
+# escrever_controle_de_blocos("../disco.txt")
