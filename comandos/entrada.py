@@ -1,20 +1,22 @@
-from i_node import Inode
-from manipulacaoArquivos import ler_memoria
-from manipulacaoArquivos import controle_blocos
-from manipulacaoArquivos import controle_inodes
-from manipulacaoArquivos import blocos
+
+from manipulacaoArquivos.ler_memoria import Ler_memoria
+from manipulacaoArquivos.controle_blocos import Controle_blocos
+from manipulacaoArquivos.controle_inodes import Controle_inodes
+from manipulacaoArquivos.blocos import Blocos
 
 # Import dos comandos
 from comandos.comandoLS import ls
 from comandos.comandoCD import cd
 from comandos.comandoCLEAR import clear
+from comandos.comandoTOUCH import touch
+from comandos.comandoRM import rm
 
-mem = ler_memoria.Ler_memoria() # Lê toda a memória
+mem = Ler_memoria() # Lê toda a memória
 
 
-lista_inodes = controle_inodes.Controle_inodes(mem) # Cria uma lista com os Inodes
-lista_controle_blocos = controle_blocos.Controle_blocos(mem) # Cria uma lista de blocos livres e ocupados
-lista_blocos = blocos.Blocos(mem) # Cria uma lista com o conteúdo armazenado nos blocos
+lista_inodes = Controle_inodes(mem) # Cria uma lista com os Inodes
+lista_controle_blocos = Controle_blocos(mem) # Cria uma lista de blocos livres e ocupados
+lista_blocos = Blocos(mem) # Cria uma lista com o conteúdo armazenado nos blocos
 # print(lista_blocos[len(lista_blocos)-1])
 # print(len(lista_blocos))
 
@@ -27,12 +29,7 @@ for i in range(len(lista_controle_blocos)-1): # Verifica quanto espaço livre te
 
 print(f'Espaço livre para armazenamento: {espaco_livre//1028} MB')
         
-def criar_arquivo(entrada):
-    # nome nao tem extensao, vira .txt
-    lista_inodes.append(Inode(entrada, "eu"))
-    print(f'Nome do arquivo criado: {lista_inodes[len(lista_inodes)-1].nome}')
-    for pos in enumerate(lista_inodes):
-        print(pos[1].nome)
+
 
 def tratar_entrada(diretorioAtual,read): 
     if diretorioAtual.count("/") == 1: #home
@@ -46,13 +43,17 @@ def tratar_entrada(diretorioAtual,read):
 
     # VINI
     if "touch" in read: # Cria arquivo
-        criar_arquivo(entrada[1])
+        print(lista_inodes[len(lista_inodes)-1].criador)
+        touch(entrada[1], lista_inodes)
+        print(lista_inodes[len(lista_inodes)-1].criador)
+        return diretorioAtual
     
     # VINI
     elif "rm" in read: # Remove arquivo
         # procura pelo nome remove da lista temporaria
         print(f'Nome do arquivo excluído: {entrada[1]}')
-        # remove_arquivo(entrada[1])
+        rm(entrada[1], lista_inodes)
+        return diretorioAtual
 
     # VINI
     elif "echo" in read: 

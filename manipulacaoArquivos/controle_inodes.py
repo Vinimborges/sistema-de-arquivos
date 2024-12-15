@@ -25,7 +25,7 @@ def Controle_inodes(lista_conteudo_disco):
                         inode.ponteiros_iNodes = tirar_zeros.pop(0)
                     # print(tirar_zeros)
                     lista_inodes.append(inode)
-                    print(lista_inodes[len(lista_inodes)-1].criador)
+                    # print(lista_inodes[len(lista_inodes)-1].criador)
                     # print(lista_inodes[0].dono)
                     # print(lista_inodes[0].ponteiros_iNodes)
     return lista_inodes
