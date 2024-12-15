@@ -9,18 +9,22 @@ init(autoreset=True)
 
 from comandos.entrada import tratar_entrada
 
+diretorioAtual = '/'
 
 if __name__ == "__main__":
     while(True):
-        print('~',Fore.GREEN +'$'+ Style.RESET_ALL,end=" ")
-        read = input()
-        print(f'Você digitou {read}')
+        print('~',Fore.GREEN +'$'+Style.RESET_ALL,diretorioAtual,end="")
+        comando = input()
+        # print(f'Você digitou {comando}')
         
-        mensagem = tratar_entrada(read)
-        if mensagem == "kill":
+        retorno = tratar_entrada(diretorioAtual,comando)
+        if retorno == "kill":
 
             #pegar toda as novas informcoes da lista Inode, Blocos e controle dos blocs e escrever na memoria
             break
+        else:
+            diretorioAtual = retorno  #atualiza o estado do diretorio atual
+
 
 
 # Lista de comandos para implentar (Dar um Ok para os que estiverem concluidos)
