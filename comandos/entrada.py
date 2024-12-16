@@ -10,6 +10,7 @@ from comandos.comandoCD import cd
 from comandos.comandoCLEAR import clear
 from comandos.comandoTOUCH import touch
 from comandos.comandoRM import rm
+from comandos.comandoECHO import echo_cria, echo_adiciona
 
 mem = Ler_memoria() # Lê toda a memória
 
@@ -61,10 +62,14 @@ def tratar_entrada(diretorioAtual,read):
         entrada_echo = read.split(">")
         print(entrada_echo)
         print(type(entrada_echo))
-        if len(entrada_echo) == 2: #Cria um arquivo já adicionando conteúdo 
-            print("um")
+        conteudo = entrada_echo[0].split('"')
+        if len(entrada_echo) == 2: #Cria um arquivo já adicionando conteúdo
+            echo_cria(entrada_echo[2].replace(" ", ""), lista_inodes, conteudo[1], lista_controle_blocos, lista_blocos)
+            # print("um")
         elif len(entrada_echo) == 3: #Adiciona conteúdo a um arquivo existente ou cria caso não exista
-            print("dois")
+            echo_adiciona(entrada_echo[2].replace(" ", ""), lista_inodes, conteudo[1], lista_controle_blocos, lista_blocos)
+            # print("dois")
+        return diretorioAtual
 
     # Ksnoh
     elif "cat" in read: # Lê o arquivo
