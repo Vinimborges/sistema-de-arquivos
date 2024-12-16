@@ -3,6 +3,7 @@ from manipulacaoArquivos.ler_memoria import Ler_memoria
 from manipulacaoArquivos.controle_blocos import Controle_blocos
 from manipulacaoArquivos.controle_inodes import Controle_inodes
 from manipulacaoArquivos.blocos import Blocos
+from manipulacaoArquivos.gravarNoDisco import gravar_no_disco
 
 # Import dos comandos
 from comandos.comandoLS import ls
@@ -116,6 +117,7 @@ def tratar_entrada(diretorioAtual,read):
         
     elif "kill" in read: # encerra o programa           
         print("Programa encerrado")
+        gravar_no_disco(mem,lista_controle_blocos,lista_inodes,lista_blocos)
         return "kill"
     
     else:

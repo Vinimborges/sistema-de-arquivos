@@ -1,3 +1,4 @@
+
 def escrever_em_bloco(nome_disco, numero_bloco, conteudo, tamanho_bloco):
     with open(nome_disco, "r+") as disco:
         conteudo_disco = disco.readlines()

@@ -18,13 +18,35 @@ def Controle_inodes(lista_conteudo_disco):
                     inode.data_de_criacao = temp1.pop(0)
                     inode.data_de_modificacao = temp1.pop(0)
                     inode.permissoes = temp1.pop(0)
-                    inode.ponteiros_blocos = temp1.pop(0)
-                    if "\x00" in temp1[0]:
-                        tirar_zeros = temp1[0].split("\x00")
+                    if temp1[0] == ';':
+                        print(f'Lista de ponteiros blocos vazia')
+                        temp1.pop(0)
+                    else:
+                        separar_ponteiros = temp1.pop(0).split("!")
+                        # print(separar_pontiros)
+                        for j, pointer in enumerate(separar_ponteiros):
+                            separar_ponteiros[j] = int(pointer)
+                        inode.ponteiros_blocos = separar_ponteiros
+                        print(inode.ponteiros_blocos)
+                    # print(temp1[0])
+                    # if "\x00" in temp1[0]:
+                    #     print('Chegou')
+                    #     tirar_zeros = temp1[0].split("\x00")
                         # print(tirar_zeros[0])
-                        inode.ponteiros_iNodes = tirar_zeros.pop(0)
-                    # print(tirar_zeros)
+                    if temp1[0] == ';':
+                        print(f'Lista de ponteiros iNodes vazia')
+                        temp1.pop(0)
+                    else:
+                        separar_ponteiros = temp1.pop(0).split("!")
+                        # print(separar_ponteiros)
+                        for j, pointer in enumerate(separar_ponteiros):
+                            separar_ponteiros[j] = int(pointer)
+                        inode.ponteiros_iNodes = separar_ponteiros
+                        # print(inode.ponteiros_iNodes)
+                        # inode.ponteiros_iNodes = temp1.pop(0)
+                        # print(tirar_zeros)
                     lista_inodes.append(inode)
+                    
                     # print(lista_inodes[len(lista_inodes)-1].criador)
                     # print(lista_inodes[0].dono)
                     # print(lista_inodes[0].ponteiros_iNodes)
