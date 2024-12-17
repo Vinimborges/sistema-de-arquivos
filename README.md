@@ -24,10 +24,24 @@ Este trabalho tem como objetivo desenvolver um sistema de arquivos baseado em i-
 
 ## Installation
 
-Para executar o código basta digitar o seguinte comando via terminal:
+Siga os passos abaixo para garantir que o código seja executado corretamente:
 
+### 1. Instalar Dependências
+Certifique-se de que o Python esteja instalado. Em seguida, execute o seguinte comando para instalar a biblioteca necessária:
 ```bash
-  python nome_do_arquivo.py
+  pip install colorama
+```
+
+### 2. Gerar Arquivo Necessário
+Após instalar as dependências, rode o script responsável por gerar o arquivo necessário para a execução do programa principal:
+```bash
+  python ./gerar_arquivo.py
+```
+
+### 3. Executar o Programa Principal
+Por fim, execute o programa principal utilizando o comando:
+```bash
+  python ./main.py
 ```
     
 ## Authors
