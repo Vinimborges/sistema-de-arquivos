@@ -40,7 +40,7 @@ def Controle_inodes(lista_conteudo_disco):
                         separar_ponteiros = temp1.pop(0).split("!")
                         # print(separar_ponteiros)
                         for j, pointer in enumerate(separar_ponteiros):
-                            separar_ponteiros[j] = int(pointer)
+                            separar_ponteiros[j] = pointer
                         inode.ponteiros_iNodes = separar_ponteiros
                         # print(inode.ponteiros_iNodes)
                         # inode.ponteiros_iNodes = temp1.pop(0)
