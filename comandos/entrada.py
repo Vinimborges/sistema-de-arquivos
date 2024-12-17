@@ -65,10 +65,10 @@ def tratar_entrada(diretorioAtual,read):
         print(type(entrada_echo))
         conteudo = entrada_echo[0].split('"')
         if len(entrada_echo) == 2: #Cria um arquivo já adicionando conteúdo
-            echo_cria(entrada_echo[2].replace(" ", ""), lista_inodes, conteudo[1], lista_controle_blocos, lista_blocos)
+            echo_cria(entrada_echo[2].replace(" ", ""), lista_inodes, conteudo[1], lista_controle_blocos, lista_blocos, diretorioAtual)
             # print("um")
         elif len(entrada_echo) == 3: #Adiciona conteúdo a um arquivo existente ou cria caso não exista
-            echo_adiciona(entrada_echo[2].replace(" ", ""), lista_inodes, conteudo[1], lista_controle_blocos, lista_blocos)
+            echo_adiciona(entrada_echo[2].replace(" ", ""), lista_inodes, conteudo[1], lista_controle_blocos, lista_blocos, diretorioAtual)
             # print("dois")
         return diretorioAtual
 
