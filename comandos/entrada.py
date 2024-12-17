@@ -96,7 +96,7 @@ def tratar_entrada(diretorioAtual,read):
         print(f'Criado o link {entrada[3]} para o arquivo {entrada[2]}')
         
     # Bia
-    elif "mkdir" in read: #Cria um diretório e nao tem extesao(criar um inode)
+    elif "mkdir" in read: # Cria um diretório e nao tem extesao(criar um inode)
         print(f'Nome do diretório criado: {entrada[1]}')
         
     # Bia
