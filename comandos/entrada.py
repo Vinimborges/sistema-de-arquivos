@@ -35,7 +35,7 @@ print(f'Espaço livre para armazenamento: {espaco_livre//1028} MB')
 
 def tratar_entrada(diretorioAtual,read): 
     if diretorioAtual.count("/") == 1: #home
-            diretorioPai = '/'
+            diretorioPai = '/home'
     else:
         diretorioAtualPartes = diretorioAtual.rsplit("/",2)
         diretorioPai = diretorioAtualPartes[len(diretorioAtualPartes) - 2]
@@ -45,9 +45,9 @@ def tratar_entrada(diretorioAtual,read):
 
     # VINI
     if "touch" in read: # Cria arquivo
-        print(lista_inodes[len(lista_inodes)-1].criador)
-        touch(entrada[1], lista_inodes)
-        print(lista_inodes[len(lista_inodes)-1].criador)
+        # print(lista_inodes[len(lista_inodes)-1].criador)
+        touch(entrada[1], lista_inodes, diretorioAtual)
+        # print(lista_inodes[len(lista_inodes)-1].criador)
         return diretorioAtual
     
     # VINI

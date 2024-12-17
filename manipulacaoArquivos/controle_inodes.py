@@ -19,7 +19,7 @@ def Controle_inodes(lista_conteudo_disco):
                     inode.data_de_modificacao = temp1.pop(0)
                     inode.permissoes = temp1.pop(0)
                     if temp1[0] == ';':
-                        print(f'Lista de ponteiros blocos vazia')
+                        # print(f'Lista de ponteiros blocos vazia')
                         temp1.pop(0)
                     else:
                         separar_ponteiros = temp1.pop(0).split("!")
@@ -27,14 +27,14 @@ def Controle_inodes(lista_conteudo_disco):
                         for j, pointer in enumerate(separar_ponteiros):
                             separar_ponteiros[j] = int(pointer)
                         inode.ponteiros_blocos = separar_ponteiros
-                        print(inode.ponteiros_blocos)
+                        # print(inode.ponteiros_blocos)
                     # print(temp1[0])
                     # if "\x00" in temp1[0]:
                     #     print('Chegou')
                     #     tirar_zeros = temp1[0].split("\x00")
                         # print(tirar_zeros[0])
                     if temp1[0] == ';':
-                        print(f'Lista de ponteiros iNodes vazia')
+                        # print(f'Lista de ponteiros iNodes vazia')
                         temp1.pop(0)
                     else:
                         separar_ponteiros = temp1.pop(0).split("!")
