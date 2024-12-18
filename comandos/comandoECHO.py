@@ -1,4 +1,5 @@
 from comandos.comandoTOUCH import touch
+from datetime import date
 
 def echo_cria(entrada, lista_inodes, conteudo, lista_controle_blocos, lista_blocos, diretorioAtual):
     lista_conteudo = list(conteudo)
@@ -23,13 +24,16 @@ def echo_cria(entrada, lista_inodes, conteudo, lista_controle_blocos, lista_bloc
                     # print(lista_inodes[k].ponteiros_blocos)
                     lista_inodes[k].ponteiros_blocos.append(i)
                     # print(lista_inodes[k].ponteiros_blocos)
-            if len(lista_conteudo) == 0:           
+                    lista_inodes[k].tam = str(len(lista_inodes[k].ponteiros_blocos) *4) 
+            if len(lista_conteudo) == 0:
                 break
     return lista_inodes, lista_controle_blocos, lista_blocos
 
 def echo_adiciona(entrada, lista_inodes, conteudo, lista_controle_blocos, lista_blocos, diretorioAtual):
     lista_conteudo = list(conteudo)
     print(lista_conteudo)
+    data_modificacao = date.today()
+    data_modificacao_formatada = data_modificacao.strftime('%d/%m/%Y')
     
     for i,inode in enumerate(lista_inodes):
         # print(f'Entrada: {entrada} inode.nome {inode.nome}')
@@ -65,9 +69,11 @@ def echo_adiciona(entrada, lista_inodes, conteudo, lista_controle_blocos, lista_
                             # print(lista_inodes[z].ponteiros_blocos)
                             lista_inodes[z].ponteiros_blocos.append(j)
                             # print(lista_inodes[z].ponteiros_blocos)
-                    if len(lista_conteudo) == 0:   
+                    if len(lista_conteudo) == 0:
+                        lista_inodes[i].tam = str(len(lista_inodes[i].ponteiros_blocos)*4)
+                        print(f'Tamanho do arquivo {lista_inodes[i].nome}: {lista_inodes[i].tam}MB')
                         break
-                    
+            lista_inodes[i].data_de_modificacao = data_modificacao_formatada
         elif i == len(lista_inodes)-1 and entrada != inode.nome:
             echo_cria(entrada, lista_inodes, conteudo, lista_controle_blocos, lista_blocos, diretorioAtual)
             break
