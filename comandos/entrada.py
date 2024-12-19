@@ -12,6 +12,7 @@ from comandos.comandoCLEAR import clear
 from comandos.comandoTOUCH import touch
 from comandos.comandoRM import rm
 from comandos.comandoECHO import echo_cria, echo_adiciona
+from comandos.comandoCAT import cat
 
 mem = Ler_memoria() # Lê toda a memória
 
@@ -76,7 +77,9 @@ def tratar_entrada(diretorioAtual,read):
     elif "cat" in read: # Lê o arquivo
         # olhar pro iNode e ir na posicao da lista do block
         print(f'Lendo o arquivo: {entrada[1]}')
+        cat(entrada[1], diretorioAtual, lista_blocos, lista_inodes)
         # criar_arquivo(entrada[1])
+        return diretorioAtual
 
     # Ksnoh
     elif "cp" in read: #Copia arquivo

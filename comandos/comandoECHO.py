@@ -38,20 +38,25 @@ def echo_adiciona(entrada, lista_inodes, conteudo, lista_controle_blocos, lista_
     for i,inode in enumerate(lista_inodes):
         # print(f'Entrada: {entrada} inode.nome {inode.nome}')
         if entrada in inode.nome:
-            for i, bloco in enumerate(inode.ponteiros_blocos):
+            for j, bloco in enumerate(inode.ponteiros_blocos):
                 conteudo_bloco = list(lista_blocos[bloco])
-                for j, letra in enumerate(conteudo_bloco):
+                for k, letra in enumerate(conteudo_bloco):
                     if letra == '\x00':
-                        k = j
+                        l = k
                         while(len(lista_conteudo) != 0):
-                            conteudo_bloco[k] = lista_conteudo.pop(0)
-                            k += 1
+                            conteudo_bloco[l] = lista_conteudo.pop(0)
+                            l += 1
+                            print("".join(conteudo_bloco))
+                            
                         # print(conteudo_bloco)
                     if len(lista_conteudo) == 0:
+                        lista_blocos[bloco] = conteudo_bloco
                         break  
                 if len(lista_conteudo) == 0:
+                    lista_blocos[bloco] = conteudo_bloco
                     break  
             if len(lista_conteudo) == 0:
+                lista_blocos[bloco] = conteudo_bloco
                 break  
             
             for j,bloco in enumerate(lista_controle_blocos):
@@ -62,6 +67,7 @@ def echo_adiciona(entrada, lista_inodes, conteudo, lista_controle_blocos, lista_
                     for k in range(len(lista_conteudo)):
                         # print(lista_conteudo.pop(0))
                         conteudo_bloco[k] = lista_conteudo.pop(0)
+                        
                     lista_blocos[j] = conteudo_bloco
                     # print(lista_blocos[j])
                     for z,inode in enumerate(lista_inodes):
@@ -77,5 +83,5 @@ def echo_adiciona(entrada, lista_inodes, conteudo, lista_controle_blocos, lista_
         elif i == len(lista_inodes)-1 and entrada != inode.nome:
             echo_cria(entrada, lista_inodes, conteudo, lista_controle_blocos, lista_blocos, diretorioAtual)
             break
-    
+    #print("ECHO: ", lista_blocos[0])
     return lista_inodes, lista_controle_blocos, lista_blocos
