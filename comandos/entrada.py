@@ -60,7 +60,6 @@ def tratar_entrada(diretorioAtual,read):
 
     # VINI
     elif "echo" in read:
-        # primeiro cria o inode e depois ja escreve no bloco dele
         entrada_echo = read.split(">")
         print(entrada_echo)
         print(type(entrada_echo))
@@ -120,7 +119,7 @@ def tratar_entrada(diretorioAtual,read):
         
     elif "kill" in read: # encerra o programa           
         print("Programa encerrado")
-        gravar_no_disco(mem,lista_controle_blocos,lista_inodes,lista_blocos)
+        gravar_no_disco(mem,lista_controle_blocos,lista_inodes,lista_blocos) # Função que grava o conteúdo no disco após o programa ser encerrado
         return "kill"
     
     else:

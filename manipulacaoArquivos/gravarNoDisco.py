@@ -3,7 +3,9 @@ def gravar_no_disco(mem,lista_controle_blocos,lista_inodes,lista_blocos):
     dados = mem
     string = ""
     print(lista_inodes)
-    for i in range(15):
+    for i in range(15): 
+        # Escreve nas prmeiras 15 linhas do disco que é onde 
+        # fica os controle de blocos
         for j in range(4094):
             string = string + lista_controle_blocos.pop(0)
             if len(lista_controle_blocos) == 0:
@@ -14,6 +16,7 @@ def gravar_no_disco(mem,lista_controle_blocos,lista_inodes,lista_blocos):
         string = ""
 
     for i,dado in enumerate(dados):
+        # Encontra a posicao do iNode na lista que tem todo o conteudo do disco
         if "Inodes|" in dado:
             global posicao
             posicao = i
@@ -24,6 +27,7 @@ def gravar_no_disco(mem,lista_controle_blocos,lista_inodes,lista_blocos):
     dado_transformado_lista = list(dados[posicao])
     # print(dado_transformado_lista)
     while(len(lista_inodes) != 0):
+        # Percorre a lista da Inodes adicionando cada um na lista que tem todo o conteudo do disco
         string = string + lista_inodes[aux].nome
         string = string + "," + lista_inodes[aux].criador
         string = string + "," + lista_inodes[aux].dono
@@ -92,6 +96,7 @@ def gravar_no_disco(mem,lista_controle_blocos,lista_inodes,lista_blocos):
         dados[i] = str("".join(lista_blocos.pop(0)))
         
     with open("./disco.txt", "w") as disco:
+        # Escreve no disco
         for i, linha in enumerate(dados):
             # print(linha)
             # print(linha.nome)
