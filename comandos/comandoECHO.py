@@ -2,14 +2,17 @@ from comandos.comandoTOUCH import touch
 from datetime import date
 
 def echo_cria(entrada, lista_inodes, conteudo, lista_controle_blocos, lista_blocos, diretorioAtual):
+    # Função que cria um arquivo e adiciona conteúdo nele
+    
     lista_conteudo = list(conteudo)
     # print(lista_conteudo)
     # string_conteudo = '"'.join(conteudo).replace('"', "")
 
     # print(lista_conteudo)
         
-    touch(entrada,lista_inodes, diretorioAtual)
+    touch(entrada,lista_inodes, diretorioAtual) # Função de criar o arquivo
     for i,bloco in enumerate(lista_controle_blocos):
+        # Aqui adiciona o conteúdo
         if "0" in bloco:
             conteudo_bloco = list(lista_blocos[i])
             print(f'Bloco {i} está livre, será adicionado conteúdo aqui')
@@ -30,15 +33,20 @@ def echo_cria(entrada, lista_inodes, conteudo, lista_controle_blocos, lista_bloc
     return lista_inodes, lista_controle_blocos, lista_blocos
 
 def echo_adiciona(entrada, lista_inodes, conteudo, lista_controle_blocos, lista_blocos, diretorioAtual):
+    # Função que adiciona o conteúdo se o arquivo já existir
+    # ou se não existir, cria um arquivo novo
+
     lista_conteudo = list(conteudo)
     print(lista_conteudo)
     data_modificacao = date.today()
     data_modificacao_formatada = data_modificacao.strftime('%d/%m/%Y')
     
     for i,inode in enumerate(lista_inodes):
+        # Percorre a lista de iNodes para ver se o arquivo já existe
         # print(f'Entrada: {entrada} inode.nome {inode.nome}')
         if entrada in inode.nome:
             for j, bloco in enumerate(inode.ponteiros_blocos):
+                # Encontra algum bloco que ainda pode ser adicionado texto
                 conteudo_bloco = list(lista_blocos[bloco])
                 for k, letra in enumerate(conteudo_bloco):
                     if letra == '\x00':
@@ -60,6 +68,7 @@ def echo_adiciona(entrada, lista_inodes, conteudo, lista_controle_blocos, lista_
                 break  
             
             for j,bloco in enumerate(lista_controle_blocos):
+                # Se todos os blocos estiverem cheio, adiciona em um bloco vazio
                 if "0" in bloco:
                     conteudo_bloco = list(lista_blocos[i])
                     print(f'Bloco {j} está livre, será adicionado conteúdo aqui')
@@ -76,11 +85,13 @@ def echo_adiciona(entrada, lista_inodes, conteudo, lista_controle_blocos, lista_
                             lista_inodes[z].ponteiros_blocos.append(j)
                             # print(lista_inodes[z].ponteiros_blocos)
                     if len(lista_conteudo) == 0:
-                        lista_inodes[i].tam = str(len(lista_inodes[i].ponteiros_blocos)*4)
+                        lista_inodes[i].tam = str(len(lista_inodes[i].ponteiros_blocos)*4) #Adiciona o tamanho do arquivo no iNode
                         print(f'Tamanho do arquivo {lista_inodes[i].nome}: {lista_inodes[i].tam}MB')
                         break
-            lista_inodes[i].data_de_modificacao = data_modificacao_formatada
+            lista_inodes[i].data_de_modificacao = data_modificacao_formatada # Adiciona a data de modificação no iNode
         elif i == len(lista_inodes)-1 and entrada != inode.nome:
+            # Se o arquivo não existir, chama a função de criar um novo arquivo
+            # e adiciona o conteúdo nele
             echo_cria(entrada, lista_inodes, conteudo, lista_controle_blocos, lista_blocos, diretorioAtual)
             break
     #print("ECHO: ", lista_blocos[0])
