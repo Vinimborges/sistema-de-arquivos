@@ -55,11 +55,11 @@ def tratar_entrada(diretorioAtual,read):
     elif "rm" in read: # Remove arquivo
         # procura pelo nome remove da lista temporaria
         print(f'Nome do arquivo excluído: {entrada[1]}')
-        rm(entrada[1], lista_inodes)
+        rm(entrada[1], lista_inodes, lista_controle_blocos)
         return diretorioAtual
 
     # VINI
-    elif "echo" in read: 
+    elif "echo" in read:
         # primeiro cria o inode e depois ja escreve no bloco dele
         entrada_echo = read.split(">")
         print(entrada_echo)
@@ -75,7 +75,7 @@ def tratar_entrada(diretorioAtual,read):
 
     # Ksnoh
     elif "cat" in read: # Lê o arquivo
-        # olhar pro iNode e ir na posicao da lista do block  
+        # olhar pro iNode e ir na posicao da lista do block
         print(f'Lendo o arquivo: {entrada[1]}')
         cat(entrada[1], diretorioAtual, lista_blocos, lista_inodes)
         # criar_arquivo(entrada[1])

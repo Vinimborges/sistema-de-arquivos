@@ -12,10 +12,10 @@ def Controle_inodes(lista_conteudo_disco):
                 if(temp1[0] != '\x00' and len(temp1) > 1):
                     nome = temp1.pop(0)
                     criador = temp1.pop(0)
-                    inode = Inode(nome, criador)
+                    inode = Inode(nome, criador, temp1.pop(2))
+                    print(inode.data_de_criacao)
                     inode.dono = temp1.pop(0)
                     inode.tam = temp1.pop(0)
-                    inode.data_de_criacao = temp1.pop(0)
                     inode.data_de_modificacao = temp1.pop(0)
                     inode.permissoes = temp1.pop(0)
                     if temp1[0] == ';':

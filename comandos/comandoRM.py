@@ -1,15 +1,22 @@
-def rm(entrada, lista_inodes):
+def rm(entrada, lista_inodes, lista_controle_blocos):
     for i,inode in enumerate(lista_inodes):
-        for j, ponteiro in enumerate(inode.ponteiros_iNodes):
-            if entrada == ponteiro:
-                lista_inodes[i].ponteiros_iNodes.pop(j)
-                print(f'Ponteiro {ponteiro} removido do iNode {inode.nome}')
-                print(f'Nova lista de ponteiros do Inode {inode.nome}: {lista_inodes[i].ponteiros_iNodes}')
-        if entrada in inode.nome:
+        if entrada == inode.nome:
+            for posicao, bloco in enumerate(inode.ponteiros_blocos):
+                # print(lista_controle_blocos[int(bloco)])
+                lista_controle_blocos[int(bloco)] = "0"
+                # print(lista_controle_blocos[int(bloco)])
             lista_inodes.pop(i)
-            for pos in enumerate(lista_inodes):
-                print(pos[1].nome)
+        else:     
+            for j, ponteiro in enumerate(inode.ponteiros_iNodes):
+                if entrada == ponteiro:
+                    lista_inodes[i].ponteiros_iNodes.pop(j)
+                    print(f'Ponteiro {ponteiro} removido do iNode {inode.nome}')
+                    print(f'Nova lista de ponteiros do Inode {inode.nome}: {lista_inodes[i].ponteiros_iNodes}')
+            if entrada in inode.nome:
+                for pos in enumerate(lista_inodes):
+                    print(pos[1].nome)
+            
     
         
-    return lista_inodes
+    return lista_inodes,lista_controle_blocos
     
