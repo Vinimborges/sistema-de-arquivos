@@ -93,11 +93,11 @@ def tratar_entrada(diretorioAtual,read):
     elif "mv" in read: #Move/Renomeia arquivo
         if "/" in entrada[1]:
             sep = entrada[1].split("/")
-            print(f'Movendo o arquivo {sep[0]} para o diretório  com o nome {sep[1]}')
-            # mv(diretorioAtual, diretorioPai, lista_inodes, lista_blocos, sep)
-        # else:
-        #     mv_Renomear(diretorioAtual)
-        #     print(f'Renomeando o arquivo {entrada[1]} para {entrada[2]}')
+            print(f'Movendo o arquivo:{sep[0]} para o diretório: {sep[1]}')
+            mv(diretorioAtual, diretorioPai, lista_inodes, lista_blocos, sep)
+        else:
+            mv_Renomear(diretorioAtual)
+            print(f'Renomeando o arquivo {entrada[1]} para {entrada[2]}')
         return diretorioAtual
 
     # Bia

@@ -22,21 +22,25 @@ def cd(entrada,diretorioPai,diretorioAtual, lista_inodes):
         return diretorioAnterior[0] + "/"
 
     else:
-        print(f'quero ir para {entrada[1]} ')
-        print(lista_inodes)
-        if entrada[1] in lista_inodes:
-            print(f'{entrada[1]} é um diretório')
-            return diretorioAtual + "/" + entrada[1]
-        
-        # for iNode in lista_inodes:
-        #     if entrada[1] == iNode.nome:
-        #         #checar se é um diretorio
-        #         if len(iNode.ponteiros_blocos) >= 0 and len(iNode.ponteiros_iNodes) == 0:
-        #             print(f'{entrada[1]} é um diretorio')
-        #             # Se é possivel entrar no diretorio
-        #             return diretorioAtual + entrada[1] + "/"
-        #         print(f'{entrada[1]} não é um diretório')
-        #         return diretorioAtual
-            
+        diretorio = entrada[1]
+        # print(f'quero ir para {diretorio} ')
+        # print(f'quero ir para {diretorioAtual} ')
+
+        if diretorioAtual == "home":
+            for iNodePai in lista_inodes:  
+                if diretorioPai == iNodePai.nome:
+                    if(diretorio in iNodePai.ponteiros_iNodes):
+                        # print(f'{diretorio} filho de {diretorioPai}')
+                        return diretorioAtual + "/" + diretorio
+        else:
+            for iNodePai in lista_inodes:  
+                if diretorioAtual == iNodePai.nome: #Verifica lista de iNodes do diretorio
+                    print(f'lista do diretorio {iNodePai.ponteiros_iNodes}')
+                    
+                    for filho in lista_inodes: #Verifica se o filho esta na lista de inodes
+                        if diretorio in filho.ponteiros_iNodes and len(filho.ponteiros_iNodes) >= 1:
+                            print(f'{diretorio} filho de {diretorioPai}')
+                            return diretorioAtual + "/" + diretorio
+ 
         # print(f'{entrada[1]} não encontrado')
         return diretorioAtual
