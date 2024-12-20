@@ -17,9 +17,10 @@ def touch(entrada, lista_inodes, diretorioAtual):
         if diretorioAtual.split("/")[-1] in inode.nome:
             # Adiciona um ponteiro para esse novo iNode, no diretório atual
             for pos_inode, ponteiro_Inode in enumerate(inode.ponteiros_iNodes):
-                if ponteiro_Inode == entrada:
-                    print(f"Erro: O nome {entrada} já está sendo usado")
-                    return lista_inodes
+                for ind_inode, inode_acessado in enumerate(lista_inodes):  
+                    if ponteiro_Inode == inode_acessado.id and entrada == inode_acessado.nome:
+                        print(f"Erro: O nome {entrada} já está sendo usado")
+                        return lista_inodes
             
             lista_inodes.append(Inode(lista_inodes[len(lista_inodes)-1].id + 1,entrada, "eu", data_criacao_formatada)) # Cria o iNode e adiciona na lista de iNodes
             if len(lista_inodes[i].ponteiros_iNodes) == 1 and lista_inodes[i].ponteiros_iNodes[0] == 'vazio':

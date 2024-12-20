@@ -48,13 +48,14 @@ def tratar_entrada(diretorioAtual,read):
     # print(f'Diretorio pai: {diretorioPai}')
     entrada = read.split()
 
-    # VINI
+    # VINI (OK)
     if "touch" in read: # Cria arquivo
         # print(lista_inodes[len(lista_inodes)-1].criador)
         touch(entrada[1], lista_inodes, diretorioAtual)
         # print(lista_inodes[len(lista_inodes)-1].criador)
         return diretorioAtual
     
+    # Bia
     elif "rmdir" in read: # verificar se ponteiros iNode esta vazia e olhar o pai
         rmdir(entrada[1], lista_inodes, diretorioAtual)
         return diretorioAtual
@@ -66,7 +67,7 @@ def tratar_entrada(diretorioAtual,read):
         rm(entrada[1], lista_inodes, lista_controle_blocos)
         return diretorioAtual
 
-    # VINI
+    # VINI (OK)
     elif "echo" in read:
         entrada_echo = read.split(">")
         print(entrada_echo)
@@ -80,30 +81,28 @@ def tratar_entrada(diretorioAtual,read):
             # print("dois")
         return diretorioAtual
 
-    # Ksnoh
+    # Ksnoh (OK)
     elif "cat" in read: # Lê o arquivo
         # olhar pro iNode e ir na posicao da lista do block
-        print(f'Lendo o arquivo: {entrada[1]}')
         cat(entrada[1], diretorioAtual, lista_blocos, lista_inodes)
-        # criar_arquivo(entrada[1])
         return diretorioAtual
 
-    # Ksnoh
+    # Ksnoh 
     elif "cp" in read: #Copia arquivo
         # ao criar o iNode copia o bloco do outro iNode
         print(f'Copiando o arquivo {entrada[1]} para o arquivo {entrada[2]}')
         cp(entrada[1], entrada[2], lista_blocos, lista_inodes, lista_controle_blocos, diretorioAtual)
         return diretorioAtual
         
-    # Ryan
+    # Ryan 
     elif "mv" in read: #Move/Renomeia arquivo
         if "/" in entrada[1]:
             sep = entrada[1].split("/")
             print(f'Movendo o arquivo:{sep[0]} para o diretório: {sep[1]}')
             mv(diretorioAtual, diretorioPai, lista_inodes, lista_blocos, sep)
         else:
-            mv_Renomear(diretorioAtual)
             print(f'Renomeando o arquivo {entrada[1]} para {entrada[2]}')
+            mv_Renomear(diretorioAtual, entrada, lista_inodes)
         return diretorioAtual
 
     # Bia
@@ -111,18 +110,16 @@ def tratar_entrada(diretorioAtual,read):
         ln(entrada[3], entrada[2], lista_inodes, diretorioAtual)
         return diretorioAtual
         
-    # Bia
+    # Bia (OK)
     elif "mkdir" in read: # Cria um diretório e nao tem extesao(criar um inode)
         mkdir(entrada[1], lista_inodes, diretorioAtual)
         return diretorioAtual
-        
-    # Bia
-    
+            
     # Ryan (OK)
     elif "ls" in read:  # listar os nome dos ponteiros iNodes
         return ls(entrada, diretorioPai, diretorioAtual, lista_inodes)
             
-    # Ryan
+    # Ryan (OK)
     elif "cd" in read:  # mover para o bloco do iNode selecionado da lista de iNodes (. permanece no mesmo diretorio, .. move um diretorio para tras)
         return cd(entrada, diretorioPai, diretorioAtual, lista_inodes)
 
@@ -130,6 +127,7 @@ def tratar_entrada(diretorioAtual,read):
     elif "clear" in read: # encerra o programa
         return clear(diretorioAtual)
         
+    #(OK)
     elif "kill" in read: # encerra o programa           
         print("Programa encerrado")
         gravar_no_disco(mem,lista_controle_blocos,lista_inodes,lista_blocos) # Função que grava o conteúdo no disco após o programa ser encerrado

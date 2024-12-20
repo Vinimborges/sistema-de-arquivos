@@ -1,9 +1,3 @@
-# from manipulacaoArquivos import controle_inodes
-# from manipulacaoArquivos import ler_memoria
-
-# mem = ler_memoria.Ler_memoria() # Lê toda a memória
-# lista_inodes = controle_inodes.Controle_inodes(mem) # Cria uma lista com os Inodes
-
 def cd(entrada,diretorioPai,diretorioAtual, lista_inodes):
     if len(entrada) == 1:
             print(f'Missing a argument') 
@@ -24,25 +18,21 @@ def cd(entrada,diretorioPai,diretorioAtual, lista_inodes):
     else:
         diretorio = entrada[1]
         diretorioAtualFinal = (diretorioAtual.split('/')[-1])
+        
+        teste = diretorio.split('.')
+        print(teste)
+        if len(teste) > 1:
+            print('Não é possivel entrar em um arquivo')
+            return diretorioAtual
 
-        print(f'quero ir para: {diretorio} ')
-        print(f'dir atual: {diretorioAtualFinal} ')
+        # print(f'quero ir para: {diretorio} ')
+        # print(f'dir atual: {diretorioAtualFinal} ')
 
-        if diretorioAtualFinal == "home":
-            for iNodePai in lista_inodes:  
-                if diretorioPai == iNodePai.nome:
-                    if(diretorio in iNodePai.ponteiros_iNodes):
-                        # print(f'{diretorio} filho de {diretorioPai}')
-                        return diretorioAtual + "/" + diretorio
-        else:
-            for iNodeAtual in lista_inodes:  
-                if diretorioAtualFinal == iNodeAtual.nome: #Verifica lista de iNodes do diretorio
-                    print(f'lista do diretorio {iNodeAtual.ponteiros_iNodes}')
-                    
-                    for filho in lista_inodes: #Verifica se o filho esta na lista de inodes
-                        if diretorio in filho.ponteiros_iNodes and len(filho.ponteiros_iNodes) >= 1:
-                            print(f'{diretorio} filho de {diretorioPai}')
-                            return diretorioAtual + "/" + diretorio
- 
-        # print(f'{entrada[1]} não encontrado')
+        for i,iNodePai in enumerate(lista_inodes):
+            if iNodePai.nome == diretorioAtualFinal:
+                for k, filho in enumerate(iNodePai.ponteiros_iNodes):
+                    for i,iNode in enumerate(lista_inodes):
+                        if iNode.id == filho and iNode.nome == diretorio:
+                            return diretorioAtual + "/" + iNode.nome
+
         return diretorioAtual

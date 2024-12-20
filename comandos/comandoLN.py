@@ -1,6 +1,6 @@
 from i_node import Inode
 from datetime import date
-
+id_dirAtual = 0
 def ln(nomeLink, nomeInode, lista_inodes, diretorioAtual):
     # Função que cria um link para um inode
 
@@ -10,7 +10,9 @@ def ln(nomeLink, nomeInode, lista_inodes, diretorioAtual):
     # Verifica se nome do link ja existe no diretório atual
     for inode in lista_inodes:
         if inode.nome == diretorioAtual:
-            for ind_pont , pont in enumerate(inode.ponteirosInodes):
+            global id_dirAtual
+            id_dirAtual = inode.id
+            for ind_pont , pont in enumerate(inode.ponteiros_iNodes):
                 for ind_inode, inode_acessado in enumerate(lista_inodes):
                     if pont == inode_acessado.id and nomeLink == inode_acessado.nome:
                         print(f"Erro: Nome {nomeLink} já está sendo usado.")
@@ -21,9 +23,9 @@ def ln(nomeLink, nomeInode, lista_inodes, diretorioAtual):
     lista_inodes[len(lista_inodes)-1].ponteiros_iNodes.append(nomeInode)
 
     for i, inode in enumerate(lista_inodes):
-        if diretorioAtual == inode.nome:
+        if diretorioAtual == inode.nome and inode.id == id_dirAtual:
             # Adiciona um ponteiro para esse novo iNode, no diretório atual
-            lista_inodes[i].ponteiros_iNodes.append(nomeLink)
+            lista_inodes[i].ponteiros_iNodes.append(lista_inodes[len(lista_inodes)-1].id)
 
             print(f"Link {nomeLink} adicionado ao diretório {diretorioAtual}.")
             break

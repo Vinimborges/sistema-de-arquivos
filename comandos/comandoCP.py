@@ -20,8 +20,7 @@ def sobrescreve(conteudo, lista_blocos, lista_inodes, lista_controle_blocos, id,
     for i,inode in enumerate(lista_inodes):
         # Percorre a lista de iNodes para ver se o arquivo já existe
         # print(f'Entrada: {entrada} inode.nome {inode.nome}')
-        if diretorioAtual.split("/")[-1] == inode.nome:
-            # if entrada in inode.ponteiros_iNodes:
+        if diretorioAtual.split("/")[-1] == inode.nome
             for j, inode_filho in enumerate(inode.ponteiros_iNodes):
                 for indice, inode_da_lista in enumerate(lista_inodes):
                     if inode_filho == inode_da_lista.id:
@@ -77,17 +76,16 @@ def sobrescreve(conteudo, lista_blocos, lista_inodes, lista_controle_blocos, id,
 
 def cp(entrada1, entrada2, lista_blocos, lista_inodes, lista_controle_blocos, diretorioAtual):
     #entrada2 recebe o conteudo de entrada1
-    for Inode1 in lista_inodes:
+    for (Inode1 in lista_inodes):
         if (Inode1.nome == diretorioAtual):
-            for ids in Inode1.ponteiros_iNodes:
-                for id_iNodes in lista_inodes:
-                    if (ids == id_iNodes.id and entrada1 == id_iNodes.nome): #id_iNodes == entrada1
-                        conteudo1 = lista_blocos[id_iNodes.ponteiros_blocos]
-
-            for ids in Inode1.ponteiros_iNodes:
-                for id_iNodes in lista_inodes:
-                    if (ids == id_iNodes.id and entrada2 == id_iNodes.nome): #id_iNodes == entrada1
-                        sobrescreve(conteudo1, lista_blocos, lista_inodes, lista_controle_blocos, id_iNodes.id, diretorioAtual)
-                        #escreve
-            break
-    return lista_blocos
+            for (ponteiros1 in Inode1.ponteiros_iNodes):
+                for (id_iNodes1 in lista_inodes):
+                    if (ponteiros1 == id_iNodes1.id and entrada1 == id_iNodes1.nome): #id_iNodes == entrada1
+                        for (ponteiros2 in Inode2.ponteiros_iNodes):
+                            for (id_iNodes2 in lista_inodes):
+                                if (ponteiros2 == id_iNodes2.id and entrada2 == id_iNodes2.nome): #id_iNodes == entrada1
+                                    for (conteudo_copiado in id_iNodes1.ponteiros_blocos):
+                                        sobrescreve(lista_blocos[conteudo_copiado], lista_blocos, lista_inodes, lista_controle_blocos, id_iNodes2.id, diretorioAtual)
+                   
+                        
+                                    return lista_blocos

@@ -50,5 +50,19 @@ def mv(diretorioAtual, diretorioPai, lista_inodes, lista_blocos, entrada):
         
     return diretorioAtual
 
-def mv_Renomear(diretorioAtual):
-    return diretorioAtual
+def mv_Renomear(diretorioAtual,entrada, lista_inodes):
+    diretorioAtual = diretorioAtual.split("/")[-1]
+    nomeAtual = entrada[1]
+    novoNome = entrada[2]
+    # print(f'nA: {nomeAtual}, nN:{novoNome}, diretorio Atual: {diretorioAtual}')
+
+    for i,iNodePai in enumerate(lista_inodes):
+        if iNodePai.nome == diretorioAtual:
+            # print(f'Cheguei no diretorio {diretorioAtual},{iNodePai.ponteiros_iNodes}')
+            for k, filho in enumerate(iNodePai.ponteiros_iNodes):
+                for i,iNode in enumerate(lista_inodes):
+                    print(iNode.id,':',iNode.nome)
+                    if iNode.id == filho and iNode.nome == nomeAtual:
+                        iNode.nome = novoNome
+
+    return lista_inodes
