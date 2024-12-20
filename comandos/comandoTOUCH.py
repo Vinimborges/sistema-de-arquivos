@@ -14,7 +14,7 @@ def touch(entrada, lista_inodes, diretorioAtual):
         # print(inode)
         if diretorioAtual in inode.nome:
             # Adiciona um ponteiro para esse novo iNode, no diretório atual
-            if lista_inodes[i].ponteiros_iNodes[0] == 'vazio':
+            if len(lista_inodes[i].ponteiros_iNodes) == 1 and lista_inodes[i].ponteiros_iNodes[0] == 'vazio':
                 lista_inodes[i].ponteiros_iNodes.pop(0)
             print(f'Adicionado o iNode {entrada}, no iNode {inode.nome}')
             lista_inodes[i].ponteiros_iNodes.append(entrada)
