@@ -16,9 +16,18 @@ def rm(entrada, lista_inodes, lista_controle_blocos):
                 # Percorre cada iNode, removendo o ponteiro para o 
                 # iNode que foi excluido
                 if entrada == ponteiro:
-                    lista_inodes[i].ponteiros_iNodes.pop(j)
-                    print(f'Ponteiro {ponteiro} removido do iNode {inode.nome}')
-                    print(f'Nova lista de ponteiros do Inode {inode.nome}: {lista_inodes[i].ponteiros_iNodes}')
+                    if len(lista_inodes[i].ponteiros_iNodes) == 1:
+                        lista_inodes[i].ponteiros_iNodes.append('vazio')
+                        lista_inodes[i].ponteiros_iNodes.pop(0)
+                        print(f'Ponteiro {ponteiro} removido do iNode {inode.nome}')
+                        print(f'Nova lista de ponteiros do Inode {inode.nome}: {lista_inodes[i].ponteiros_iNodes}')
+                    else:
+                        lista_inodes[i].ponteiros_iNodes.pop(j)
+                        print(f'Ponteiro {ponteiro} removido do iNode {inode.nome}')
+                        print(f'Nova lista de ponteiros do Inode {inode.nome}: {lista_inodes[i].ponteiros_iNodes}')
+                    
+                    # print(f'Ponteiro {ponteiro} removido do iNode {inode.nome}')
+                    # print(f'Nova lista de ponteiros do Inode {inode.nome}: {lista_inodes[i].ponteiros_iNodes}')
             if entrada in inode.nome:
                 for pos in enumerate(lista_inodes):
                     print(pos[1].nome)
