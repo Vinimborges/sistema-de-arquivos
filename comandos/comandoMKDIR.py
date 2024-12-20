@@ -24,6 +24,7 @@ def mkdir(nomeDiretorio, lista_inodes, diretorioAtual):
     # Cria um novo Inode para o diretório
     lista_inodes.append(Inode(lista_inodes[len(lista_inodes)-1].id+1, nomeDiretorio, "eu", data_criacao_formatada)) # Cria o iNode e adiciona na lista de iNodes
     global id_dir
+
     id_dir = lista_inodes[len(lista_inodes)-1].id
     lista_inodes[len(lista_inodes)-1].ponteiros_iNodes.append('vazio')
 

@@ -57,7 +57,7 @@ def tratar_entrada(diretorioAtual,read):
     
     # Bia
     elif "rmdir" in read: # verificar se ponteiros iNode esta vazia e olhar o pai
-        rmdir(entrada[1], lista_inodes, diretorioAtual)
+        rmdir(entrada[1], lista_inodes, diretorioPai, diretorioAtual)
         return diretorioAtual
     
     # VINI
