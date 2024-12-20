@@ -1,6 +1,6 @@
 def rm(entrada, lista_inodes, lista_controle_blocos):
     for i,inode in enumerate(lista_inodes):
-        if entrada == inode.nome:
+        if entrada == inode.nome and len(inode.ponteiros_iNodes) == 0:
             # Se o iNode existir, exclui ele da lista de iNodes
             for posicao, bloco in enumerate(inode.ponteiros_blocos):
                 # Muda todos os blocos desse iNode de 1 para 0
@@ -10,7 +10,7 @@ def rm(entrada, lista_inodes, lista_controle_blocos):
                 # print(lista_controle_blocos[int(bloco)])
                 lista_controle_blocos[int(bloco)] = "0"
                 # print(lista_controle_blocos[int(bloco)])
-            lista_inodes.pop(i)
+            lista_inodes.pop(i)         
         else:     
             for j, ponteiro in enumerate(inode.ponteiros_iNodes):
                 # Percorre cada iNode, removendo o ponteiro para o 
