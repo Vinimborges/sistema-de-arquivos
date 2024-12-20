@@ -12,7 +12,7 @@ def touch(entrada, lista_inodes, diretorioAtual):
     print(lista_inodes[len(lista_inodes)-1].data_de_criacao)
     for i, inode in enumerate(lista_inodes):
         # print(inode)
-        if diretorioAtual in inode.nome:
+        if diretorioAtual.split("/",1) in inode.nome:
             # Adiciona um ponteiro para esse novo iNode, no diretório atual
             if len(lista_inodes[i].ponteiros_iNodes) == 1 and lista_inodes[i].ponteiros_iNodes[0] == 'vazio':
                 lista_inodes[i].ponteiros_iNodes.pop(0)
