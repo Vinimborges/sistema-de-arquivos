@@ -14,7 +14,6 @@ def apaga(lista_blocos, lista_inodes, lista_controle_blocos, entrada):
                         
                     lista_blocos[bloco] = conteudo_bloco
                 break
-    lista_blocos
     return lista_blocos
                   
                     
@@ -82,10 +81,8 @@ def sobrescreve(conteudo, lista_blocos, lista_inodes, lista_controle_blocos, ent
 def cp(entrada1, entrada2, lista_blocos, lista_inodes, lista_controle_blocos):
     
     for Inode1 in lista_inodes:
-
         if (Inode1.nome == entrada1):
             for Inode2 in lista_inodes:
-               
                 if (Inode2.nome == entrada2):
                     for conteudo_arq1 in Inode1.ponteiros_blocos:
                         sobrescreve(lista_blocos[conteudo_arq1], lista_blocos, lista_inodes, lista_controle_blocos, entrada2)
