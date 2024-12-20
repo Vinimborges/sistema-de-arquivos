@@ -2,7 +2,7 @@ from i_node import Inode
 from datetime import date
 
 def ln(nomeLink, nomeInode, lista_inodes, diretorioAtual):
-    # Função que cria um diretório
+    # Função que cria um link para um inode
 
     data_criacao = date.today() # Pega a data em que o arquivo foi criado
     data_criacao_formatada = data_criacao.strftime('%d/%m/%Y')

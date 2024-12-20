@@ -16,6 +16,7 @@ from comandos.comandoCAT import cat
 from comandos.comandoCP import cp
 from comandos.comandoMKDIR import mkdir
 from comandos.comandoLN import ln
+from comandos.comandoRMDIR import rmdir
 
 mem = Ler_memoria() # Lê toda a memória
 
@@ -51,6 +52,10 @@ def tratar_entrada(diretorioAtual,read):
         # print(lista_inodes[len(lista_inodes)-1].criador)
         touch(entrada[1], lista_inodes, diretorioAtual)
         # print(lista_inodes[len(lista_inodes)-1].criador)
+        return diretorioAtual
+    
+    elif "rmdir" in read: # verificar se ponteiros iNode esta vazia e olhar o pai
+        rmdir(entrada[1], lista_inodes, diretorioAtual)
         return diretorioAtual
     
     # VINI
@@ -111,8 +116,6 @@ def tratar_entrada(diretorioAtual,read):
         return diretorioAtual
         
     # Bia
-    elif "rmdir" in read: # verificar se ponteiros iNode esta vazia e olhar o pai
-        print(f'Diretório {entrada[1]} removido')
     
     # Ryan (OK)
     elif "ls" in read:  # listar os nome dos ponteiros iNodes
