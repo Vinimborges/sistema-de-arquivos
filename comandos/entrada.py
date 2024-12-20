@@ -17,6 +17,7 @@ from comandos.comandoCP import cp
 from comandos.comandoMKDIR import mkdir
 from comandos.comandoLN import ln
 from comandos.comandoRMDIR import rmdir
+from comandos.comandoMOVE import mv, mv_Renomear
 
 mem = Ler_memoria() # Lê toda a memória
 
