@@ -13,6 +13,7 @@ from comandos.comandoTOUCH import touch
 from comandos.comandoRM import rm
 from comandos.comandoECHO import echo_cria, echo_adiciona
 from comandos.comandoCAT import cat
+from comandos.comandoMKDIR import mkdir
 
 mem = Ler_memoria() # Lê toda a memória
 
@@ -99,7 +100,9 @@ def tratar_entrada(diretorioAtual,read):
         
     # Bia
     elif "mkdir" in read: # Cria um diretório e nao tem extesao(criar um inode)
-        print(f'Nome do diretório criado: {entrada[1]}')
+        # print(f'Nome do diretório criado: {entrada[1]}')
+        mkdir(entrada[1], lista_inodes, diretorioAtual)
+        return diretorioAtual
         
     # Bia
     elif "rmdir" in read: # verificar se ponteiros iNode esta vazia e olhar o pai
