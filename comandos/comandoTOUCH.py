@@ -21,11 +21,11 @@ def touch(entrada, lista_inodes, diretorioAtual):
                     print(f"Erro: O nome {entrada} já está sendo usado")
                     return lista_inodes
             
-            lista_inodes.append(Inode(entrada, "eu", data_criacao_formatada)) # Cria o iNode e adiciona na lista de iNodes
+            lista_inodes.append(Inode(lista_inodes[len(lista_inodes)-1].id + 1,entrada, "eu", data_criacao_formatada)) # Cria o iNode e adiciona na lista de iNodes
             if len(lista_inodes[i].ponteiros_iNodes) == 1 and lista_inodes[i].ponteiros_iNodes[0] == 'vazio':
                 lista_inodes[i].ponteiros_iNodes.pop(0)
             print(f'Adicionado o iNode {entrada}, no iNode {inode.nome}')
-            lista_inodes[i].ponteiros_iNodes.append(entrada)
+            lista_inodes[i].ponteiros_iNodes.append(lista_inodes[len(lista_inodes)-1].id)
             print(f'Lista de ponteiros Inodes do Inode {inode.nome}: {lista_inodes[i].ponteiros_iNodes}')
     print(f'Nome do arquivo criado: {lista_inodes[len(lista_inodes)-1].nome}')
     # for pos in enumerate(lista_inodes):

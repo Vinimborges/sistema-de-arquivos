@@ -1,5 +1,7 @@
 from i_node import Inode
 
+
+
 def Controle_inodes(lista_conteudo_disco):
     lista_inodes = []
     for i, mem in enumerate(lista_conteudo_disco):
@@ -10,9 +12,10 @@ def Controle_inodes(lista_conteudo_disco):
             for i, temp in enumerate(temp):
                 temp1 = temp.split(",")
                 if(temp1[0] != '\x00' and len(temp1) > 1):
+                    id_inode = int(temp1.pop(0))
                     nome = temp1.pop(0)
                     criador = temp1.pop(0)
-                    inode = Inode(nome, criador, temp1.pop(2))
+                    inode = Inode(id_inode, nome, criador, temp1.pop(2))
                     print(inode.data_de_criacao)
                     inode.dono = temp1.pop(0)
                     inode.tam = temp1.pop(0)
@@ -40,7 +43,7 @@ def Controle_inodes(lista_conteudo_disco):
                         separar_ponteiros = temp1.pop(0).split("!")
                         # print(separar_ponteiros)
                         for j, pointer in enumerate(separar_ponteiros):
-                            separar_ponteiros[j] = pointer
+                            separar_ponteiros[j] = int(pointer)
                         inode.ponteiros_iNodes = separar_ponteiros
                         # print(inode.ponteiros_iNodes)
                         # inode.ponteiros_iNodes = temp1.pop(0)

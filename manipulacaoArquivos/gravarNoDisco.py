@@ -28,7 +28,8 @@ def gravar_no_disco(mem,lista_controle_blocos,lista_inodes,lista_blocos):
     # print(dado_transformado_lista)
     while(len(lista_inodes) != 0):
         # Percorre a lista da Inodes adicionando cada um na lista que tem todo o conteudo do disco
-        string = string + lista_inodes[aux].nome
+        string = string + str(lista_inodes[aux].id)
+        string = string + "," + lista_inodes[aux].nome
         string = string + "," + lista_inodes[aux].criador
         string = string + "," + lista_inodes[aux].dono
         string = string + "," + lista_inodes[aux].tam

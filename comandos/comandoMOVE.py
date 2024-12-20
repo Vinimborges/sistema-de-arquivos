@@ -42,6 +42,8 @@ def mv(diretorioAtual, diretorioPai, lista_inodes, lista_blocos, entrada):
                     for destino in lista_inodes:
                         if destino.nome == diretorio: #Verifica se é um diretorio
                             print(f' {destino.nome} é um diretorio que consigo adicionar iNode')
+                            if 'vazio' in destino.ponteiros_iNodes:
+                                destino.ponteiros_iNodes.pop(0)
                             destino.ponteiros_iNodes.append(arquivo)
                             print(f'lista de {destino.nome} :{destino.ponteiros_iNodes}')
                             iNodeAtual.ponteiros_iNodes.remove(arquivo)

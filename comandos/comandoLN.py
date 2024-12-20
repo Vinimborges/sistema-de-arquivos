@@ -9,12 +9,15 @@ def ln(nomeLink, nomeInode, lista_inodes, diretorioAtual):
 
     # Verifica se nome do link ja existe no diretório atual
     for inode in lista_inodes:
-        if inode.nome == nomeLink:
-            print(f"Erro: Nome {nomeLink} já está sendo usado.")
-            return lista_inodes
-        
+        if inode.nome == diretorioAtual:
+            for ind_pont , pont in enumerate(inode.ponteirosInodes):
+                for ind_inode, inode_acessado in enumerate(lista_inodes):
+                    if pont == inode_acessado.id and nomeLink == inode_acessado.nome:
+                        print(f"Erro: Nome {nomeLink} já está sendo usado.")
+                        return lista_inodes
+                    
     # Cria um novo Inode para o diretório
-    lista_inodes.append(Inode(nomeLink, "eu", data_criacao_formatada)) # Cria o iNode e adiciona na lista de iNodes
+    lista_inodes.append(Inode( lista_inodes[len(lista_inodes)-1].id + 1, nomeLink, "eu", data_criacao_formatada)) # Cria o iNode e adiciona na lista de iNodes
     lista_inodes[len(lista_inodes)-1].ponteiros_iNodes.append(nomeInode)
 
     for i, inode in enumerate(lista_inodes):

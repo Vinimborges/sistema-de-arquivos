@@ -9,19 +9,27 @@ def mkdir(nomeDiretorio, lista_inodes, diretorioAtual):
 
     for inode in lista_inodes:
         # Verifica se o diretorio já existe no diretório atual
-        if inode.nome == nomeDiretorio:
-            print(f"Erro: O diretório {nomeDiretorio} já existe no diretório atual.")
-            return lista_inodes
+        if diretorioAtual.split("/")[-1] in inode.nome:
+            id_diretorioAtual = inode.id
+            for i,ponteiro in enumerate(inode.ponteiros_iNodes):
+                for ind_inode, inode_acessado in enumerate(lista_inodes):
+                    if ponteiro == inode_acessado.id and nomeDiretorio == inode_acessado.nome:
+                        id_dir = inode_acessado.id
+                        print(f"Erro: O diretório {nomeDiretorio} já existe no diretório atual.")
+                        return lista_inodes
 
     # Cria um novo Inode para o diretório
-    lista_inodes.append(Inode(nomeDiretorio, "eu", data_criacao_formatada)) # Cria o iNode e adiciona na lista de iNodes
+    lista_inodes.append(Inode(lista_inodes[len(lista_inodes)-1].id+1, nomeDiretorio, "eu", data_criacao_formatada)) # Cria o iNode e adiciona na lista de iNodes
 
     lista_inodes[len(lista_inodes)-1].ponteiros_iNodes.append('vazio')
 
     for i, inode in enumerate(lista_inodes):
-        if diretorioAtual == inode.nome:
+        if diretorioAtual.split("/")[-1] == inode.nome and inode.id == id_diretorioAtual:
+            if 'vazio' in inode.ponteiros_iNodes:
+                
+                inode.ponteiros_iNodes.pop(0)
             # Adiciona um ponteiro para esse novo iNode, no diretório atual
-            lista_inodes[i].ponteiros_iNodes.append(nomeDiretorio)
+            lista_inodes[i].ponteiros_iNodes.append(id_dir)
             print(lista_inodes[i].ponteiros_iNodes)
             print(f"Diretório {nomeDiretorio} adicionado ao diretório {diretorioAtual}.")
             break

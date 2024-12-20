@@ -10,7 +10,7 @@ def echo_cria(entrada, lista_inodes, conteudo, lista_controle_blocos, lista_bloc
 
     # print(lista_conteudo)
         
-    touch(entrada,lista_inodes, diretorioAtual) # Função de criar o arquivo
+    touch(lista_inodes[len(lista_inodes)-1].id + 1, entrada,lista_inodes, diretorioAtual) # Função de criar o arquivo
     for i,bloco in enumerate(lista_controle_blocos):
         # Aqui adiciona o conteúdo
         if "0" in bloco:
@@ -44,28 +44,33 @@ def echo_adiciona(entrada, lista_inodes, conteudo, lista_controle_blocos, lista_
     for i,inode in enumerate(lista_inodes):
         # Percorre a lista de iNodes para ver se o arquivo já existe
         # print(f'Entrada: {entrada} inode.nome {inode.nome}')
-        if entrada in inode.nome:
-            for j, bloco in enumerate(inode.ponteiros_blocos):
-                # Encontra algum bloco que ainda pode ser adicionado texto
-                conteudo_bloco = list(lista_blocos[bloco])
-                for k, letra in enumerate(conteudo_bloco):
-                    if letra == '\x00':
-                        l = k
-                        while(len(lista_conteudo) != 0):
-                            conteudo_bloco[l] = lista_conteudo.pop(0)
-                            l += 1
-                            print("".join(conteudo_bloco))
-                            
-                        # print(conteudo_bloco)
-                    if len(lista_conteudo) == 0:
-                        lista_blocos[bloco] = conteudo_bloco
-                        break  
-                if len(lista_conteudo) == 0:
-                    lista_blocos[bloco] = conteudo_bloco
-                    break  
-            if len(lista_conteudo) == 0:
-                lista_blocos[bloco] = conteudo_bloco
-                break  
+        if diretorioAtual.split("/")[-1] == inode.nome:
+            # if entrada in inode.ponteiros_iNodes:
+            for j, inode_filho in enumerate(inode.ponteiros_iNodes):
+                for indice, inode_da_lista in enumerate(lista_inodes):
+                    if inode_filho == inode_da_lista.id and entrada == inode_da_lista.nome:
+                        id_inode = inode_da_lista.id
+                        for ind_bloco, bloco in enumerate(inode_da_lista.ponteiros_blocos):
+                            # Encontra algum bloco que ainda pode ser adicionado texto
+                            conteudo_bloco = list(lista_blocos[bloco])
+                            for k, letra in enumerate(conteudo_bloco):
+                                if letra == '\x00':
+                                    l = k
+                                    while(len(lista_conteudo) != 0):
+                                        conteudo_bloco[l] = lista_conteudo.pop(0)
+                                        l += 1
+                                        print("".join(conteudo_bloco))
+                                        
+                                    # print(conteudo_bloco)
+                                if len(lista_conteudo) == 0:
+                                    lista_blocos[bloco] = conteudo_bloco
+                                    break  
+                            if len(lista_conteudo) == 0:
+                                lista_blocos[bloco] = conteudo_bloco
+                                break  
+                        if len(lista_conteudo) == 0:
+                            lista_blocos[bloco] = conteudo_bloco
+                            break  
             
             for j,bloco in enumerate(lista_controle_blocos):
                 # Se todos os blocos estiverem cheio, adiciona em um bloco vazio
@@ -80,7 +85,7 @@ def echo_adiciona(entrada, lista_inodes, conteudo, lista_controle_blocos, lista_
                     lista_blocos[j] = conteudo_bloco
                     # print(lista_blocos[j])
                     for z,inode in enumerate(lista_inodes):
-                        if entrada in inode.nome:
+                        if id_inode == inode.id:
                             # print(lista_inodes[z].ponteiros_blocos)
                             lista_inodes[z].ponteiros_blocos.append(j)
                             # print(lista_inodes[z].ponteiros_blocos)

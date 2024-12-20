@@ -1,5 +1,6 @@
 class Inode:
-   def __init__(self, nome, criador, data_criacao):
+   def __init__(self,id_inode, nome, criador, data_criacao):
+       self.id = id_inode
        self.nome = nome
        self.criador = criador
        self.dono = criador

@@ -13,4 +13,4 @@ def criar_disco(nome_disco, tamanho_mb):
 criar_disco("disco.txt", 256)
 escrever_controle_de_blocos("disco.txt")
 escrever_em_bloco("disco.txt", 100, "Inodes|", 4096)
-escrever_em_bloco("disco.txt", 100, "home,eu,eu,10,25/10/2024,10/10/10,todas,;,;|", 4096)
+escrever_em_bloco("disco.txt", 100, "0,home,eu,eu,10,25/10/2024,10/10/10,todas,;,;|", 4096)
