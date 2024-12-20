@@ -13,6 +13,7 @@ from comandos.comandoTOUCH import touch
 from comandos.comandoRM import rm
 from comandos.comandoECHO import echo_cria, echo_adiciona
 from comandos.comandoCAT import cat
+from comandos.comandoMOVE import mv, mv_Renomear
 
 mem = Ler_memoria() # Lê toda a memória
 
@@ -41,7 +42,7 @@ def tratar_entrada(diretorioAtual,read):
         diretorioAtualPartes = diretorioAtual.rsplit("/",2)
         diretorioPai = diretorioAtualPartes[len(diretorioAtualPartes) - 2]
     
-    print(f'Diretorio pai: {diretorioPai}')
+    # print(f'Diretorio pai: {diretorioPai}')
     entrada = read.split()
 
     # VINI
@@ -87,11 +88,14 @@ def tratar_entrada(diretorioAtual,read):
         
     # Ryan
     elif "mv" in read: #Move/Renomeia arquivo
-        if "/" in entrada[2]:
-            sep = entrada[2].split("/")
-            print(f'Movendo o arquivo {entrada[1]} para o diretório {sep[0]} com o nome {sep[1]}')
-        else:
-            print(f'Renomeando o arquivo {entrada[1]} para {entrada[2]}')
+        if "/" in entrada[1]:
+            sep = entrada[1].split("/")
+            print(f'Movendo o arquivo {sep[0]} para o diretório  com o nome {sep[1]}')
+            # mv(diretorioAtual, diretorioPai, lista_inodes, lista_blocos, sep)
+        # else:
+        #     mv_Renomear(diretorioAtual)
+        #     print(f'Renomeando o arquivo {entrada[1]} para {entrada[2]}')
+        return diretorioAtual
 
     # Bia
     elif "ln" in read:# cria um Inode com os mesmos ponteiros (link)
@@ -105,15 +109,15 @@ def tratar_entrada(diretorioAtual,read):
     elif "rmdir" in read: # verificar se ponteiros iNode esta vazia e olhar o pai
         print(f'Diretório {entrada[1]} removido')
     
-    # Ryan
+    # Ryan (OK)
     elif "ls" in read:  # listar os nome dos ponteiros iNodes
-        return ls(entrada,diretorioPai,diretorioAtual)
+        return ls(entrada, diretorioPai, diretorioAtual, lista_inodes)
             
     # Ryan
     elif "cd" in read:  # mover para o bloco do iNode selecionado da lista de iNodes (. permanece no mesmo diretorio, .. move um diretorio para tras)
-        return cd(entrada,diretorioPai,diretorioAtual)
+        return cd(entrada, diretorioPai, diretorioAtual, lista_inodes)
 
-    # Ryan
+    # Ryan (OK)
     elif "clear" in read: # encerra o programa
         return clear(diretorioAtual)
         
