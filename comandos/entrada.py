@@ -13,10 +13,11 @@ from comandos.comandoTOUCH import touch
 from comandos.comandoRM import rm
 from comandos.comandoECHO import echo_cria, echo_adiciona
 from comandos.comandoCAT import cat
-from comandos.comandoMOVE import mv, mv_Renomear
+from comandos.comandoCP import cp
+from comandos.comandoMKDIR import mkdir
+from comandos.comandoLN import ln
 
 mem = Ler_memoria() # Lê toda a memória
-
 
 lista_inodes = Controle_inodes(mem) # Cria uma lista com os Inodes
 lista_controle_blocos = Controle_blocos(mem) # Cria uma lista de blocos livres e ocupados
@@ -85,6 +86,8 @@ def tratar_entrada(diretorioAtual,read):
     elif "cp" in read: #Copia arquivo
         # ao criar o iNode copia o bloco do outro iNode
         print(f'Copiando o arquivo {entrada[1]} para o arquivo {entrada[2]}')
+        cp(entrada[1], entrada[2], lista_blocos, lista_inodes, lista_controle_blocos)
+        return diretorioAtual
         
     # Ryan
     elif "mv" in read: #Move/Renomeia arquivo
@@ -98,12 +101,14 @@ def tratar_entrada(diretorioAtual,read):
         return diretorioAtual
 
     # Bia
-    elif "ln" in read:# cria um Inode com os mesmos ponteiros (link)
-        print(f'Criado o link {entrada[3]} para o arquivo {entrada[2]}')
+    elif "ln" in read: #cria um Inode com os mesmos ponteiros (link)
+        ln(entrada[3], entrada[2], lista_inodes, diretorioAtual)
+        return diretorioAtual
         
     # Bia
     elif "mkdir" in read: # Cria um diretório e nao tem extesao(criar um inode)
-        print(f'Nome do diretório criado: {entrada[1]}')
+        mkdir(entrada[1], lista_inodes, diretorioAtual)
+        return diretorioAtual
         
     # Bia
     elif "rmdir" in read: # verificar se ponteiros iNode esta vazia e olhar o pai
