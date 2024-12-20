@@ -82,7 +82,7 @@ def cp(entrada1, entrada2, lista_blocos, lista_inodes, lista_controle_blocos, di
             for ids in Inode1.ponteiros_iNodes:
                 for id_iNodes in lista_inodes:
                     if (ids == id_iNodes.id and entrada1 == id_iNodes.nome): #id_iNodes == entrada1
-                        conteudo1 = id_iNodes.ponteiros_blocos
+                        conteudo1 = lista_blocos[id_iNodes.ponteiros_blocos]
 
             for ids in Inode1.ponteiros_iNodes:
                 for id_iNodes in lista_inodes:

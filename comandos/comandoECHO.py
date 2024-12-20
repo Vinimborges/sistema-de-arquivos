@@ -1,6 +1,8 @@
 from comandos.comandoTOUCH import touch
 from datetime import date
 
+id_inode = 0
+
 def echo_cria(entrada, lista_inodes, conteudo, lista_controle_blocos, lista_blocos, diretorioAtual):
     # Função que cria um arquivo e adiciona conteúdo nele
     
@@ -49,6 +51,7 @@ def echo_adiciona(entrada, lista_inodes, conteudo, lista_controle_blocos, lista_
             for j, inode_filho in enumerate(inode.ponteiros_iNodes):
                 for indice, inode_da_lista in enumerate(lista_inodes):
                     if inode_filho == inode_da_lista.id and entrada == inode_da_lista.nome:
+                        global id_inode
                         id_inode = inode_da_lista.id
                         for ind_bloco, bloco in enumerate(inode_da_lista.ponteiros_blocos):
                             # Encontra algum bloco que ainda pode ser adicionado texto
