@@ -1,20 +1,14 @@
 from datetime import date
 
 def apaga(lista_blocos, lista_inodes, lista_controle_blocos, entrada):
-    for inode in lista_inodes:
+    for i, inode in enumerate(lista_inodes):
             # print(f'Entrada: {entrada} inode.nome {inode.nome}')
             if entrada in inode.nome:
                 for bloco in inode.ponteiros_blocos:
-                    conteudo_bloco = list(lista_blocos[bloco])
-                    for k, letra in enumerate(conteudo_bloco):
-                        if letra != '\x00':
-                            conteudo_bloco[k] = '\x00'
-                            
-                        
-                        
-                    lista_blocos[bloco] = conteudo_bloco
+                    lista_controle_blocos[bloco] = '0'
+                    lista_inodes[i].ponteiros_blocos.pop(0)
+                   
                 break
-    return lista_blocos
                   
                     
                         
