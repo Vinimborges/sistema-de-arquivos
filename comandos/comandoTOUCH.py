@@ -9,6 +9,9 @@ def touch(entrada, lista_inodes, diretorioAtual):
     # nome nao tem extensao, vira .txt
     # print(diretorioAtual)
     # print(lista_inodes[len(lista_inodes)-1].data_de_criacao)
+    if len(entrada.split(".")) == 1:
+        entrada = entrada + '.txt'
+        print(entrada)
     for i, inode in enumerate(lista_inodes):
         # print(inode)
         if diretorioAtual.split("/")[-1] in inode.nome:
