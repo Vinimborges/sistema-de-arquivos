@@ -1,7 +1,6 @@
 from i_node import Inode
 from datetime import date
 
-
 def mkdir(nomeDiretorio, lista_inodes, diretorioAtual):
     # Função que cria um diretório
 
@@ -16,7 +15,7 @@ def mkdir(nomeDiretorio, lista_inodes, diretorioAtual):
 
     # Cria um novo Inode para o diretório
     lista_inodes.append(Inode(nomeDiretorio, "eu", data_criacao_formatada)) # Cria o iNode e adiciona na lista de iNodes
-    print(lista_inodes[len(lista_inodes)-1].data_de_criacao)
+    # print(lista_inodes[len(lista_inodes)-1].data_de_criacao)
 
     lista_inodes[len(lista_inodes)-1].ponteiros_iNodes.append('vazio')
 
