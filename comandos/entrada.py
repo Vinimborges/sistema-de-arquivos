@@ -42,7 +42,7 @@ def tratar_entrada(diretorioAtual,read):
         diretorioAtualPartes = diretorioAtual.rsplit("/",2)
         diretorioPai = diretorioAtualPartes[len(diretorioAtualPartes) - 2]
     
-    print(f'Diretorio pai: {diretorioPai}')
+    # print(f'Diretorio pai: {diretorioPai}')
     entrada = read.split()
 
     # VINI
@@ -61,7 +61,6 @@ def tratar_entrada(diretorioAtual,read):
 
     # VINI
     elif "echo" in read:
-        # primeiro cria o inode e depois ja escreve no bloco dele
         entrada_echo = read.split(">")
         print(entrada_echo)
         print(type(entrada_echo))
@@ -91,11 +90,14 @@ def tratar_entrada(diretorioAtual,read):
         
     # Ryan
     elif "mv" in read: #Move/Renomeia arquivo
-        if "/" in entrada[2]:
-            sep = entrada[2].split("/")
-            print(f'Movendo o arquivo {entrada[1]} para o diretório {sep[0]} com o nome {sep[1]}')
-        else:
-            print(f'Renomeando o arquivo {entrada[1]} para {entrada[2]}')
+        if "/" in entrada[1]:
+            sep = entrada[1].split("/")
+            print(f'Movendo o arquivo {sep[0]} para o diretório  com o nome {sep[1]}')
+            # mv(diretorioAtual, diretorioPai, lista_inodes, lista_blocos, sep)
+        # else:
+        #     mv_Renomear(diretorioAtual)
+        #     print(f'Renomeando o arquivo {entrada[1]} para {entrada[2]}')
+        return diretorioAtual
 
     # Bia
     elif "ln" in read:# cria um Inode com os mesmos ponteiros (link)
@@ -109,21 +111,21 @@ def tratar_entrada(diretorioAtual,read):
     elif "rmdir" in read: # verificar se ponteiros iNode esta vazia e olhar o pai
         print(f'Diretório {entrada[1]} removido')
     
-    # Ryan
+    # Ryan (OK)
     elif "ls" in read:  # listar os nome dos ponteiros iNodes
-        return ls(entrada,diretorioPai,diretorioAtual)
+        return ls(entrada, diretorioPai, diretorioAtual, lista_inodes)
             
     # Ryan
     elif "cd" in read:  # mover para o bloco do iNode selecionado da lista de iNodes (. permanece no mesmo diretorio, .. move um diretorio para tras)
-        return cd(entrada,diretorioPai,diretorioAtual)
+        return cd(entrada, diretorioPai, diretorioAtual, lista_inodes)
 
-    # Ryan
+    # Ryan (OK)
     elif "clear" in read: # encerra o programa
         return clear(diretorioAtual)
         
     elif "kill" in read: # encerra o programa           
         print("Programa encerrado")
-        gravar_no_disco(mem,lista_controle_blocos,lista_inodes,lista_blocos)
+        gravar_no_disco(mem,lista_controle_blocos,lista_inodes,lista_blocos) # Função que grava o conteúdo no disco após o programa ser encerrado
         return "kill"
     
     else:
