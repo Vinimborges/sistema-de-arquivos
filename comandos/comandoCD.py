@@ -23,8 +23,8 @@ def cd(entrada,diretorioPai,diretorioAtual, lista_inodes):
 
     else:
         diretorio = entrada[1]
-        # print(f'quero ir para {diretorio} ')
-        # print(f'quero ir para {diretorioAtual} ')
+        print(f'quero ir para {diretorio} ')
+        print(f'quero ir para {diretorioAtual} ')
 
         if diretorioAtual == "home":
             for iNodePai in lista_inodes:  
@@ -33,8 +33,13 @@ def cd(entrada,diretorioPai,diretorioAtual, lista_inodes):
                         # print(f'{diretorio} filho de {diretorioPai}')
                         return diretorioAtual + "/" + diretorio
         else:
-            for iNodePai in lista_inodes:  
-                if diretorioAtual == iNodePai.nome: #Verifica lista de iNodes do diretorio
+            caminho = diretorioAtual.split("/")
+            caminhoCheck = ""
+            print(f'Caminho: {caminho}')
+            # for trecho in range(len(caminho)-1):
+                 
+            for iNodeAtual in lista_inodes:  
+                if diretorioAtual == iNodeAtual.nome: #Verifica lista de iNodes do diretorio
                     print(f'lista do diretorio {iNodePai.ponteiros_iNodes}')
                     
                     for filho in lista_inodes: #Verifica se o filho esta na lista de inodes
