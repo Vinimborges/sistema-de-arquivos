@@ -20,7 +20,7 @@ def cd(entrada,diretorioPai,diretorioAtual, lista_inodes):
         diretorioAtualFinal = (diretorioAtual.split('/')[-1])
         
         teste = diretorio.split('.')
-        print(teste)
+        # print(teste)
         if len(teste) > 1:
             print('Não é possivel entrar em um arquivo')
             return diretorioAtual

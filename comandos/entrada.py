@@ -100,6 +100,7 @@ def tratar_entrada(diretorioAtual,read):
             sep = entrada[1].split("/")
             print(f'Movendo o arquivo:{sep[0]} para o diretório: {sep[1]}')
             mv(diretorioAtual, diretorioPai, lista_inodes, lista_blocos, sep)
+            
         else:
             print(f'Renomeando o arquivo {entrada[1]} para {entrada[2]}')
             mv_Renomear(diretorioAtual, entrada, lista_inodes)
