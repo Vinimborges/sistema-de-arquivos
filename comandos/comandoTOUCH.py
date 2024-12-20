@@ -8,12 +8,20 @@ def touch(entrada, lista_inodes, diretorioAtual):
     data_criacao_formatada = data_criacao.strftime('%d/%m/%Y')
     # nome nao tem extensao, vira .txt
     # print(diretorioAtual)
-    lista_inodes.append(Inode(entrada, "eu", data_criacao_formatada)) # Cria o iNode e adiciona na lista de iNodes
-    print(lista_inodes[len(lista_inodes)-1].data_de_criacao)
+    # print(lista_inodes[len(lista_inodes)-1].data_de_criacao)
+    if len(entrada.split(".")) == 1:
+        entrada = entrada + '.txt'
+        print(entrada)
     for i, inode in enumerate(lista_inodes):
         # print(inode)
         if diretorioAtual.split("/")[-1] in inode.nome:
             # Adiciona um ponteiro para esse novo iNode, no diretório atual
+            for pos_inode, ponteiro_Inode in enumerate(inode.ponteiros_iNodes):
+                if ponteiro_Inode == entrada:
+                    print(f"Erro: O nome {entrada} já está sendo usado")
+                    return lista_inodes
+            
+            lista_inodes.append(Inode(entrada, "eu", data_criacao_formatada)) # Cria o iNode e adiciona na lista de iNodes
             if len(lista_inodes[i].ponteiros_iNodes) == 1 and lista_inodes[i].ponteiros_iNodes[0] == 'vazio':
                 lista_inodes[i].ponteiros_iNodes.pop(0)
             print(f'Adicionado o iNode {entrada}, no iNode {inode.nome}')
