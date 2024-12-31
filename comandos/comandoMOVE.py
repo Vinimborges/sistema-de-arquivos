@@ -1,3 +1,22 @@
+# funcao para retornar o id do arquivo renomeado
+def encontra_arquivo(entrada,diretorioAtual, lista_inodes):
+    id = None
+    idPai = None
+    caminho = diretorioAtual.split("/")
+
+    print(entrada,diretorioAtual)
+    for posicao in range(len(caminho)):
+        for i,inode in enumerate(lista_inodes):
+            if inode.nome == caminho[posicao]:
+                for filhos in inode.ponteiros_iNodes:
+                    for j,inodeP in enumerate(lista_inodes):
+                        if posicao == len(caminho) - 1:
+                            if inodeP.id == filhos and inodeP.nome == entrada:
+                                id = inodeP.id 
+                                idPai = inode.id
+    # print("id:",id)
+    # print("idPAI:",idPai)
+    return id
 
 def mv(diretorioAtual, diretorioPai, lista_inodes, lista_blocos, entrada):
     arquivo = entrada[0]
@@ -36,44 +55,17 @@ def mv(diretorioAtual, diretorioPai, lista_inodes, lista_blocos, entrada):
 
 
     diretorioAtualSeparado = diretorioAtual.split()
-
-    # if diretorioPai == 'home':
-    #     #ja esta na lista de iNodes
-    #     for i,iNodePai in enumerate(lista_inodes):  
-    #         if diretorioPai == iNodePai.nome:
-    #             # print(f'Diretorio pai na lista de inodes')
-    #             for k, filho in enumerate(iNodePai.ponteiros_iNodes):
-    #                 for j, inode in enumerate(lista_inodes):
-    #                     if inode.id == filho and inode.nome == diretorio:
-    #                         for m, diretorioTeste in enumerate(lista_inodes):
-    #                             if diretorioTeste.id == inode.id and len(diretorioTeste.ponteiros_iNodes) >= 1:
-
-    #                                 for i,iNodePais in enumerate(lista_inodes):  
-    #                                     if diretorioPai == iNodePais.nome:
-    #                                         for k, filhos in enumerate(iNodePais.ponteiros_iNodes):
-    #                                             for j, inodes in enumerate(lista_inodes):
-    #                                                 if inodes.id == filhos and inodes.nome == arquivo:
-    #                                                     diretorioTeste.ponteiros_iNodes.append(inodes.id)
-    #                                                     if 'vazio' in diretorioTeste.ponteiros_iNodes:
-    #                                                         diretorioTeste.ponteiros_iNodes.pop(0)
-    #                                                     print(f"diretorio {diretorioTeste.nome} atualizado {diretorioTeste.ponteiros_iNodes}")
-
         
     return lista_inodes
 
 def mv_Renomear(diretorioAtual,entrada, lista_inodes):
-    diretorioAtual = diretorioAtual.split("/")[-1]
-    nomeAtual = entrada[1]
-    novoNome = entrada[2]
-    # print(f'nA: {nomeAtual}, nN:{novoNome}, diretorio Atual: {diretorioAtual}')
 
-    for i,iNodePai in enumerate(lista_inodes):
-        if iNodePai.nome == diretorioAtual:
-            # print(f'Cheguei no diretorio {diretorioAtual},{iNodePai.ponteiros_iNodes}')
-            for k, filho in enumerate(iNodePai.ponteiros_iNodes):
-                for i,iNode in enumerate(lista_inodes):
-                    print(iNode.id,':',iNode.nome)
-                    if iNode.id == filho and iNode.nome == nomeAtual:
-                        iNode.nome = novoNome
+    arquivo = entrada[1]
+    novo_nome = entrada[2]
 
+    id = encontra_arquivo(arquivo,diretorioAtual, lista_inodes)
+
+    for i,iNode in enumerate(lista_inodes):
+        if iNode.id == id:
+            iNode.nome = novo_nome
     return lista_inodes

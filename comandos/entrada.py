@@ -55,16 +55,16 @@ def tratar_entrada(diretorioAtual,read):
         # print(lista_inodes[len(lista_inodes)-1].criador)
         return diretorioAtual
     
-    # Bia (Arrumar)
+    # Bia (OK) (OK)
     elif "rmdir" in read: # verificar se ponteiros iNode esta vazia e olhar o pai
-        rmdir(entrada[1], lista_inodes, diretorioPai, diretorioAtual)
+        rmdir(entrada[1], lista_inodes, diretorioAtual)
         return diretorioAtual
     
-    # VINI (Arrumar)
+    # VINI (ok)
     elif "rm" in read: # Remove arquivo
         # procura pelo nome remove da lista temporaria
         print(f'Nome do arquivo excluído: {entrada[1]}')
-        rm(entrada[1], lista_inodes, lista_controle_blocos)
+        rm(entrada[1], diretorioAtual, lista_inodes, lista_controle_blocos)
         return diretorioAtual
 
     # VINI (OK)
@@ -87,27 +87,25 @@ def tratar_entrada(diretorioAtual,read):
         cat(entrada[1], diretorioAtual, lista_blocos, lista_inodes)
         return diretorioAtual
 
-    # Ksnoh 
+    # Ksnoh (nao testei)
     elif "cp" in read: #Copia arquivo
         # ao criar o iNode copia o bloco do outro iNode
         print(f'Copiando o arquivo {entrada[1]} para o arquivo {entrada[2]}')
         cp(entrada[1], entrada[2], lista_blocos, lista_inodes, lista_controle_blocos, diretorioAtual)
         return diretorioAtual
         
-    # Ryan 
-    elif "mv" in read: #Move/Renomeia arquivo
-        #(ok) (ok)
+    # Ryan (OK) (OK)
+    elif "mv" in read: #Move/Renomeia arquivos
         if "/" in entrada[1]:
             sep = entrada[1].split("/")
-            print(f'Movendo o arquivo:{sep[0]} para o diretório: {sep[1]}')
+            # print(f'Movendo o arquivo:{sep[0]} para o diretório: {sep[1]}')
             mv(diretorioAtual, diretorioPai, lista_inodes, lista_blocos, sep)
-            
         else:
-            print(f'Renomeando o arquivo {entrada[1]} para {entrada[2]}')
+            # print(f'Renomeando o arquivo {entrada[1]} para {entrada[2]}')
             mv_Renomear(diretorioAtual, entrada, lista_inodes)
         return diretorioAtual
 
-    # Bia
+    # Bia (nao testei)
     elif "ln" in read: #cria um Inode com os mesmos ponteiros (link)
         ln(entrada[3], entrada[2], lista_inodes, diretorioAtual)
         return diretorioAtual
@@ -131,7 +129,7 @@ def tratar_entrada(diretorioAtual,read):
         
     #      (OK) (ok)
     elif ("kill" in read) or ("exit" in read): # encerra o programa           
-        print("Programa encerrado")
+        # print("Programa encerrado")
         gravar_no_disco(mem,lista_controle_blocos,lista_inodes,lista_blocos) # Função que grava o conteúdo no disco após o programa ser encerrado
         return "kill"
     
