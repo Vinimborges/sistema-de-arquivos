@@ -7,22 +7,22 @@ def cat(entrada, diretorioAtual, lista_blocos, lista_inodes):
                 for i, inode_acessado in enumerate(lista_inodes):
                    
                     if ponteiro == inode_acessado.id and entrada == inode_acessado.nome:
-                        print(f'NOME DO QUE INODE {inode_acessado.nome}')
-                        # if len(inode_acessado.ponteiros_blocos) == 0:
-                        #     print("Arquivo vazio")
-                        #     return lista_blocos
-                        print(inode_acessado.ponteiros_blocos)
+                        # print(f'NOME DO QUE INODE {inode_acessado.nome}')
+
+                        if len(inode_acessado.ponteiros_blocos) == 0:
+                            print("Arquivo vazio")
+                            return lista_blocos
+
                         for l,pega in enumerate(inode_acessado.ponteiros_blocos):
-                            # print("PREGA:")
-                            # if pega == []:
-                            #     checkVazio = i
+                            # print("PEGA:")
+                            if pega == []:
+                                checkVazio = i
                             print("".join(lista_blocos[pega]))
                             controle = 1
                             break
     if (controle == 1):
         if checkVazio == 0:
             print("Arquivo vazio")
-
         return lista_blocos
     else:
         print("O arquivo não existe ou não está no diretório atual.")
