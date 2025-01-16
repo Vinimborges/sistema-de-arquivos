@@ -6,7 +6,7 @@ def rmdir(nomeDiretorio, lista_inodes, diretorioAtual):
     for i, inode in enumerate(lista_inodes):
         # Verifica se o iNode existe
         if diretorioAtual == inode.nome:
-            for ind_pont , pont in enumerate(inode.ponteirosInodes):
+            for ind_pont , pont in enumerate(inode.ponteiros_iNodes):
                 for ind_inode, inode_acessado in enumerate(lista_inodes):
                     if pont == inode_acessado.id and nomeDiretorio == inode_acessado.nome:
                         # Se o iNode existir, exclui ele da lista de iNodes
