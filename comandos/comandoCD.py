@@ -10,10 +10,13 @@ def cd(entrada,diretorioPai,diretorioAtual, lista_inodes):
             return diretorioAtual
         
     elif entrada[1] == "..":
-        diretorioAnterior = diretorioAtual.rsplit("/",2)
+        diretorioAnterior = diretorioAtual.rsplit("/",1)
+        # print(diretorioAtual)
+        # print(diretorioAnterior)
         if (diretorioAnterior[0] + "/") == 'home/':
             return 'home'
-        return diretorioAnterior[0] + "/"
+
+        return diretorioAnterior[0]
 
     else:
         diretorio = entrada[1]
