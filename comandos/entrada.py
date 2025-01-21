@@ -60,14 +60,14 @@ def tratar_entrada(diretorioAtual,read):
         rmdir(entrada[1], lista_inodes, diretorioAtual)
         return diretorioAtual
     
-    # VINI (ok)
+    # VINI (ok) (ok)
     elif "rm" in read: # Remove arquivo
         # procura pelo nome remove da lista temporaria
         print(f'Nome do arquivo excluído: {entrada[1]}')
         rm(entrada[1], diretorioAtual, lista_inodes, lista_controle_blocos)
         return diretorioAtual
 
-    # VINI (OK)
+    # VINI (OK) (ok)
     elif "echo" in read:
         entrada_echo = read.split(">")
         print(entrada_echo)
