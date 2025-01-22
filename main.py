@@ -5,11 +5,33 @@
 from cadastrar_usuario import cadastrar_usuario
 from login import login
 
+from manipulacaoArquivos.ler_memoria import Ler_memoria
+from manipulacaoArquivos.controle_blocos import Controle_blocos
+from manipulacaoArquivos.controle_inodes import Controle_inodes
+from manipulacaoArquivos.blocos import Blocos
+from manipulacaoArquivos.users import Users
+
 from colorama import Fore, Back, Style, init
 # Initialize Colorama
 init(autoreset=True)
 
 from comandos.entrada import tratar_entrada
+
+mem = Ler_memoria() # Lê toda a memória
+
+lista_inodes = Controle_inodes(mem) # Cria uma lista com os Inodes
+lista_controle_blocos = Controle_blocos(mem) # Cria uma lista de blocos livres e ocupados
+lista_blocos = Blocos(mem) # Cria uma lista com o conteúdo armazenado nos blocos
+lista_users = Users(mem)
+
+espaco_livre = 0
+
+for i in range(len(lista_controle_blocos)-1): # Verifica quanto espaço livre tem
+    if lista_controle_blocos[i] == "0":
+        espaco_livre += 4
+
+
+print(f'Espaço livre para armazenamento: {espaco_livre//1028} MB')
 
 diretorioAtual = 'home'
 
@@ -17,13 +39,13 @@ if __name__ == "__main__":
     while(True):
         op = int(input("Digite 1 para cadastrar usuário ou 2 para logar: "))
         if op == 1:
-            cadastrar_usuario()
+            cadastrar_usuario(lista_inodes,lista_users)
         elif op == 2:
-            diretorioAtual = diretorioAtual + '/' + login()
+            diretorioAtual = diretorioAtual + '/' + login(lista_users)
             print(diretorioAtual)
             print('~',Fore.GREEN +'$'+Style.RESET_ALL+'/'+diretorioAtual,end="/ ")
             comando = input()
-            retorno = tratar_entrada(diretorioAtual,comando)
+            retorno = tratar_entrada(diretorioAtual,comando,mem,lista_inodes,lista_controle_blocos,lista_blocos,lista_users)
             if retorno == "kill":
 
                 #pegar toda as novas informcoes da lista Inode, Blocos e controle dos blocs e escrever na memoria
