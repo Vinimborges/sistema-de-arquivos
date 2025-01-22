@@ -3,7 +3,6 @@ def criptografar(texto):
 
   Args:
     texto: Texto a ser cifrado.
-    deslocamento: Número de posições a serem deslocadas no alfabeto.
 
   Returns:
     Texto cifrado.

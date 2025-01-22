@@ -1,8 +1,6 @@
 
-from manipulacaoArquivos.ler_memoria import Ler_memoria
-from manipulacaoArquivos.controle_blocos import Controle_blocos
-from manipulacaoArquivos.controle_inodes import Controle_inodes
-from manipulacaoArquivos.blocos import Blocos
+
+
 from manipulacaoArquivos.gravarNoDisco import gravar_no_disco
 
 # Import dos comandos
@@ -19,26 +17,17 @@ from comandos.comandoLN import ln
 from comandos.comandoRMDIR import rmdir
 from comandos.comandoMOVE import mv, mv_Renomear
 
-mem = Ler_memoria() # Lê toda a memória
 
-lista_inodes = Controle_inodes(mem) # Cria uma lista com os Inodes
-lista_controle_blocos = Controle_blocos(mem) # Cria uma lista de blocos livres e ocupados
-lista_blocos = Blocos(mem) # Cria uma lista com o conteúdo armazenado nos blocos
+
+
 # print(lista_blocos[len(lista_blocos)-1])
 # print(len(lista_blocos))
 
-espaco_livre = 0
 
-for i in range(len(lista_controle_blocos)-1): # Verifica quanto espaço livre tem
-    if lista_controle_blocos[i] == "0":
-        espaco_livre += 4
-
-
-print(f'Espaço livre para armazenamento: {espaco_livre//1028} MB')
         
 
 
-def tratar_entrada(diretorioAtual,read): 
+def tratar_entrada(diretorioAtual,read,mem,lista_inodes,lista_controle_blocos,lista_blocos,lista_users): 
     if diretorioAtual.count("/") == 1: #home
             diretorioPai = '/home'
     else:
@@ -130,7 +119,7 @@ def tratar_entrada(diretorioAtual,read):
     #      (OK) (ok)
     elif ("kill" in read) or ("exit" in read): # encerra o programa           
         # print("Programa encerrado")
-        gravar_no_disco(mem,lista_controle_blocos,lista_inodes,lista_blocos) # Função que grava o conteúdo no disco após o programa ser encerrado
+        gravar_no_disco(mem,lista_controle_blocos,lista_inodes,lista_blocos,lista_users) # Função que grava o conteúdo no disco após o programa ser encerrado
         return "kill"
     
     else:

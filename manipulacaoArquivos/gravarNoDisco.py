@@ -1,5 +1,5 @@
 pos = 0
-def gravar_no_disco(mem,lista_controle_blocos,lista_inodes,lista_blocos):
+def gravar_no_disco(mem,lista_controle_blocos,lista_inodes,lista_blocos,lista_users):
     dados = mem
     string = ""
     print(lista_inodes)
@@ -14,6 +14,21 @@ def gravar_no_disco(mem,lista_controle_blocos,lista_inodes,lista_blocos):
         dados[i] = string
         print(string)
         string = ""
+        
+    for i in range(15,100): 
+        # Escreve nas prmeiras 15 linhas do disco que é onde 
+        # fica os controle de blocos
+        while(len(string) < 4094):
+            if len(lista_users) != 0:    
+                indice = lista_users.pop(0)
+                string = string + indice["user"] + "," + indice["password"] + "|"
+            else:
+                string = string + "\x00"
+        string = string + "\n"
+        dados[i] = string
+        print(string)
+        string = ""
+
 
     for i,dado in enumerate(dados):
         # Encontra a posicao do iNode na lista que tem todo o conteudo do disco
