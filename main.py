@@ -2,6 +2,8 @@
     Estrutura da memoria
     [GerInodes, GerBlock, Blocks]
 '''
+from cadastrar_usuario import cadastrar_usuario
+from login import login
 
 from colorama import Fore, Back, Style, init
 # Initialize Colorama
@@ -13,17 +15,25 @@ diretorioAtual = 'home'
 
 if __name__ == "__main__":
     while(True):
-        print('~',Fore.GREEN +'$'+Style.RESET_ALL+'/'+diretorioAtual,end="/ ")
-        comando = input()
+        op = int(input("Digite 1 para cadastrar usuário ou 2 para logar: "))
+        if op == 1:
+            cadastrar_usuario()
+        elif op == 2:
+            diretorioAtual = diretorioAtual + '/' + login()
+            print(diretorioAtual)
+            print('~',Fore.GREEN +'$'+Style.RESET_ALL+'/'+diretorioAtual,end="/ ")
+            comando = input()
+            retorno = tratar_entrada(diretorioAtual,comando)
+            if retorno == "kill":
+
+                #pegar toda as novas informcoes da lista Inode, Blocos e controle dos blocs e escrever na memoria
+                break
+            else:
+                diretorioAtual = retorno  #atualiza o estado do diretorio atual
+        else: 
+            print("Opção inválida")    
         # print(f'Você digitou {comando}')
         
-        retorno = tratar_entrada(diretorioAtual,comando)
-        if retorno == "kill":
-
-            #pegar toda as novas informcoes da lista Inode, Blocos e controle dos blocs e escrever na memoria
-            break
-        else:
-            diretorioAtual = retorno  #atualiza o estado do diretorio atual
 
 
 
