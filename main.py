@@ -43,7 +43,7 @@ if __name__ == "__main__":
         elif op == 2:
             diretorioAtual = diretorioAtual + '/' + login(lista_users)
             while(True):    
-                print(diretorioAtual)
+                # print(diretorioAtual)
                 print('~',Fore.GREEN +'$'+Style.RESET_ALL+'/'+diretorioAtual,end="/ ")
                 comando = input()
                 retorno = tratar_entrada(diretorioAtual,comando,mem,lista_inodes,lista_controle_blocos,lista_blocos,lista_users)
