@@ -21,7 +21,7 @@ def gravar_no_disco(mem,lista_controle_blocos,lista_inodes,lista_blocos,lista_us
         while(len(string) < 4094):
             if len(lista_users) != 0:    
                 indice = lista_users.pop(0)
-                string = string + indice["user"] + "," + indice["password"] + "|"
+                string = string + indice["user"] + "," + indice["password"] + "="
             else:
                 string = string + "\x00"
         string = string + "\n"
@@ -50,7 +50,8 @@ def gravar_no_disco(mem,lista_controle_blocos,lista_inodes,lista_blocos,lista_us
         string = string + "," + lista_inodes[aux].tam
         string = string + "," + lista_inodes[aux].data_de_criacao
         string = string + "," + lista_inodes[aux].data_de_modificacao
-        string = string + "," + lista_inodes[aux].permissoes
+        string = string + "," + lista_inodes[aux].permissoes_dono
+        string = string + "," + lista_inodes[aux].permissoes_outros
         string = string + ","
         
         print(lista_inodes[aux].ponteiros_blocos)

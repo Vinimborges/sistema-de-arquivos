@@ -11,6 +11,7 @@ def Controle_inodes(lista_conteudo_disco):
             temp.pop(0)
             for i, temp in enumerate(temp):
                 temp1 = temp.split(",")
+                print(temp1)
                 if(temp1[0] != '\x00' and len(temp1) > 1):
                     id_inode = int(temp1.pop(0))
                     nome = temp1.pop(0)
@@ -20,7 +21,8 @@ def Controle_inodes(lista_conteudo_disco):
                     inode.dono = temp1.pop(0)
                     inode.tam = temp1.pop(0)
                     inode.data_de_modificacao = temp1.pop(0)
-                    inode.permissoes = temp1.pop(0)
+                    inode.permissoes_dono = temp1.pop(0)
+                    inode.permissoes_outros = temp1.pop(0)
                     if temp1[0] == ';':
                         # print(f'Lista de ponteiros blocos vazia')
                         temp1.pop(0)

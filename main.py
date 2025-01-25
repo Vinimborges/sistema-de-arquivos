@@ -42,16 +42,17 @@ if __name__ == "__main__":
             cadastrar_usuario(lista_inodes,lista_users)
         elif op == 2:
             diretorioAtual = diretorioAtual + '/' + login(lista_users)
-            print(diretorioAtual)
-            print('~',Fore.GREEN +'$'+Style.RESET_ALL+'/'+diretorioAtual,end="/ ")
-            comando = input()
-            retorno = tratar_entrada(diretorioAtual,comando,mem,lista_inodes,lista_controle_blocos,lista_blocos,lista_users)
-            if retorno == "kill":
+            while(True):    
+                print(diretorioAtual)
+                print('~',Fore.GREEN +'$'+Style.RESET_ALL+'/'+diretorioAtual,end="/ ")
+                comando = input()
+                retorno = tratar_entrada(diretorioAtual,comando,mem,lista_inodes,lista_controle_blocos,lista_blocos,lista_users)
+                if retorno == "kill":
 
-                #pegar toda as novas informcoes da lista Inode, Blocos e controle dos blocs e escrever na memoria
-                break
-            else:
-                diretorioAtual = retorno  #atualiza o estado do diretorio atual
+                    #pegar toda as novas informcoes da lista Inode, Blocos e controle dos blocs e escrever na memoria
+                    break
+                else:
+                    diretorioAtual = retorno  #atualiza o estado do diretorio atual
         else: 
             print("Opção inválida")    
         # print(f'Você digitou {comando}')
