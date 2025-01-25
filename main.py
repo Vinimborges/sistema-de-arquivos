@@ -53,6 +53,7 @@ if __name__ == "__main__":
                     break
                 else:
                     diretorioAtual = retorno  #atualiza o estado do diretorio atual
+            break
         else: 
             print("Opção inválida")    
         # print(f'Você digitou {comando}')

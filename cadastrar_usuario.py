@@ -13,4 +13,5 @@ def cadastrar_usuario(lista_inodes,lista_users):
         print(f'Usuário {nome} cadastrado com sucesso')
         lista_users.append(dict(user=nome, password=criptografar(senha)))
         lista_inodes.append(Inode(lista_inodes[len(lista_inodes)-1].id + 1,nome,nome,data_criacao_formatada))
+        lista_inodes[0].ponteiros_iNodes.append(lista_inodes[len(lista_inodes)-1].id)
     return lista_inodes,lista_users
