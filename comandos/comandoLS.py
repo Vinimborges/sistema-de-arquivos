@@ -1,8 +1,13 @@
 
 def ls(entrada,diretorioPai,diretorioAtual, lista_inodes):
-    if len(entrada) > 1:
+    if len(entrada) > 2:
         print('Too much arguments')
         return diretorioAtual
+
+    mostrar_permissoes = False
+    if len(entrada) == 2:
+        if entrada[1] == '-l':
+            mostrar_permissoes = True
 
     caminho = diretorioAtual.split("/")
     if len(caminho) >= 2:
@@ -30,10 +35,16 @@ def ls(entrada,diretorioPai,diretorioAtual, lista_inodes):
                                             if ids == iNodeP.id:
                                                 if iNodeP.dono == usuario_atual:
                                                     if iNodeP.permissoes_dono.split('+')[0] == 'r':
-                                                        print("dono",iNodeP.nome)
-                                                else: # Caso nao sej    a o dono 
+                                                        if mostrar_permissoes: 
+                                                            print(iNodeP.permissoes_dono,iNodeP.permissoes_outros," ", iNodeP.nome)
+                                                        else:
+                                                            print(iNodeP.nome)
+                                                else: # Caso nao seja o dono 
                                                     if iNodeP.permissoes_outros.split('+')[0] == 'r':
-                                                        print("outro",iNodeP.nome)
+                                                        if mostrar_permissoes: 
+                                                            print(iNodeP.permissoes_dono,iNodeP.permissoes_outros," ", iNodeP.nome)
+                                                        else:
+                                                            print(iNodeP.nome)
 
     return diretorioAtual   
     

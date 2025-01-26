@@ -16,7 +16,7 @@ from comandos.comandoMKDIR import mkdir
 from comandos.comandoLN import ln
 from comandos.comandoRMDIR import rmdir
 from comandos.comandoMOVE import mv, mv_Renomear
-
+from comandos.comandoCHMOD import chmod
 
 
 
@@ -115,6 +115,10 @@ def tratar_entrada(diretorioAtual,read,mem,lista_inodes,lista_controle_blocos,li
     # Ryan (OK) (ok)
     elif "clear" in read: # encerra o programa
         return clear(diretorioAtual)
+
+    elif "chmod" in read:
+        chmod(entrada, diretorioAtual, lista_inodes)
+        return diretorioAtual
         
     #      (OK) (ok)
     elif ("kill" in read) or ("exit" in read): # encerra o programa           
