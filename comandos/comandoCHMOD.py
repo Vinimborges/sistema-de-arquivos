@@ -1,4 +1,4 @@
-def chmod(entrada, diretorioAtual, lista_inodes):
+def chmod(entrada, diretorioAtual, lista_inodes, usuario_logado):
     if len(entrada) < 3:
         print('Missing arguments')
         return diretorioAtual
@@ -34,7 +34,7 @@ def chmod(entrada, diretorioAtual, lista_inodes):
                                     for ids in iNodeFilhoDir.ponteiros_iNodes:
                                         for m, iNodeP in enumerate(lista_inodes):
                                             if ids == iNodeP.id:
-                                                if iNodeP.dono == usuario_atual: #mudar para verificar se o usuario esta logado
+                                                if iNodeP.dono == usuario_logado or iNodeP.permissoes_outros[2] == 'w': # Verifica se tem permissao 
                                                     if iNodeP.nome == arquivo_diretorio:
                                                         iNodeP.permissoes_dono = permissaoDono
                                                         iNodeP.permissoes_outros = permissaoOutros

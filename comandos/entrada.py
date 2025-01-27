@@ -27,7 +27,7 @@ from comandos.comandoCHMOD import chmod
         
 
 
-def tratar_entrada(diretorioAtual,read,mem,lista_inodes,lista_controle_blocos,lista_blocos,lista_users): 
+def tratar_entrada(diretorioAtual,read,mem,lista_inodes,lista_controle_blocos,lista_blocos,lista_users, usuario_logado): 
     if diretorioAtual.count("/") == 1: #home
             diretorioPai = '/home'
     else:
@@ -117,7 +117,7 @@ def tratar_entrada(diretorioAtual,read,mem,lista_inodes,lista_controle_blocos,li
         return clear(diretorioAtual)
 
     elif "chmod" in read:
-        chmod(entrada, diretorioAtual, lista_inodes)
+        chmod(entrada, diretorioAtual, lista_inodes, usuario_logado)
         return diretorioAtual
         
     #      (OK) (ok)
