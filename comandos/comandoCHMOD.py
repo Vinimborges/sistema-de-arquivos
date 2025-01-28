@@ -26,8 +26,6 @@ def chmod(entrada, diretorioAtual, lista_inodes, usuario_logado):
             for idFilho in iNodePai.ponteiros_iNodes:
                 for j,iNodeFilho in enumerate(lista_inodes):
                     if idFilho == iNodeFilho.id:
-                        # if diretorioAtual == "home":
-                        #     print(iNodeFilho.nome)
                         if iNodeFilho.nome == diretorioAtuall:
                             for l,iNodeFilhoDir in enumerate(lista_inodes):
                                 if iNodeFilhoDir.id == iNodeFilho.id:
@@ -40,7 +38,8 @@ def chmod(entrada, diretorioAtual, lista_inodes, usuario_logado):
                                                         iNodeP.permissoes_outros = permissaoOutros
                                                 else:
                                                     print("Permission denied")
-    return diretorioAtual
+                                                    return
+    return
 
 
 def controlePermissoes(permissao):

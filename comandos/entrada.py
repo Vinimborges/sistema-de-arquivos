@@ -18,15 +18,6 @@ from comandos.comandoRMDIR import rmdir
 from comandos.comandoMOVE import mv, mv_Renomear
 from comandos.comandoCHMOD import chmod
 
-
-
-# print(lista_blocos[len(lista_blocos)-1])
-# print(len(lista_blocos))
-
-
-        
-
-
 def tratar_entrada(diretorioAtual,read,mem,lista_inodes,lista_controle_blocos,lista_blocos,lista_users, usuario_logado): 
     if diretorioAtual.count("/") == 1: #home
             diretorioPai = '/home'
@@ -120,6 +111,10 @@ def tratar_entrada(diretorioAtual,read,mem,lista_inodes,lista_controle_blocos,li
         chmod(entrada, diretorioAtual, lista_inodes, usuario_logado)
         return diretorioAtual
         
+    elif "whoami" in read:
+        print(usuario_logado)
+        return diretorioAtual 
+
     #      (OK) (ok)
     elif ("kill" in read) or ("exit" in read): # encerra o programa           
         # print("Programa encerrado")
