@@ -92,16 +92,16 @@ def tratar_entrada(diretorioAtual,read,mem,lista_inodes,lista_controle_blocos,li
         
     # Bia (OK)  (ok)
     elif "mkdir" in read: # Cria um diretório e nao tem extesao(criar um inode)
-        mkdir(entrada[1], lista_inodes, diretorioAtual)
+        mkdir(entrada[1], lista_inodes, diretorioAtual,usuario_logado)
         return diretorioAtual
             
     # Ryan (OK) (ok)
     elif "ls" in read:  # listar os nome dos ponteiros iNodes
-        return ls(entrada, diretorioPai, diretorioAtual, lista_inodes)
+        return ls(entrada, diretorioPai, diretorioAtual, lista_inodes, usuario_logado)
             
     # Ryan (OK) (ok)
     elif "cd" in read:  # mover para o bloco do iNode selecionado da lista de iNodes (. permanece no mesmo diretorio, .. move um diretorio para tras)
-        return cd(entrada, diretorioPai, diretorioAtual, lista_inodes)
+        return cd(entrada, diretorioPai, diretorioAtual, lista_inodes, usuario_logado)
 
     # Ryan (OK) (ok)
     elif "clear" in read: # encerra o programa

@@ -4,10 +4,10 @@ id_dir = 0
 id_diretorioAtual = 0
 
 
-def mkdir(nomeDiretorio, lista_inodes, diretorioAtual):
+def mkdir(nomeDiretorio, lista_inodes, diretorioAtual,usuario_logado):
     # Função que cria um diretório
     usuario_existe = False
-    usuario = "root"
+    usuario = usuario_logado
     if len(diretorioAtual.split('/')) > 1:
         usuario = diretorioAtual.split('/')[1]  #ex: home/ryan
 
