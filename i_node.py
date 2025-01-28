@@ -8,7 +8,7 @@ class Inode:
        self.data_de_criacao = data_criacao
        self.data_de_modificacao = data_criacao
        self.permissoes_dono =   "r+w+e" #permissoes_dono                #leitura/escrita/execucao
-       self.permissoes_outros =  "r+w+e" #permissoes_outros
+       self.permissoes_outros =  "r+-+-" #permissoes_outros
     #    self.ponteiros_blocos = None
     #    self.ponteiros_iNodes = None
        self.ponteiros_blocos = []

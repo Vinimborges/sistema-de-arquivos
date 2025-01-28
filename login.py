@@ -7,20 +7,22 @@ def login(lista_users):
     # with open("usuarios.txt", "r+") as usuarios_db:
     #     conteudo_usuarios = usuarios_db.readlines()
     usuarios = lista_users
-    print(len(usuarios))
+    # print(len(usuarios))
     # for i in range(len(lista_usuarios)):
     #     sep = lista_usuarios[i].rstrip().split()
     #     infos_usuario = dict(user=sep[0], password=descriptografar(sep[1]))
     #     usuarios.append(infos_usuario)
     #     print(infos_usuario["password"])
-    print(usuarios)
+    # print(usuarios)
     while(True):
         user = input("Digite o nome de usuário: ")
+        if user == "back":
+            return user
         for posicao in usuarios:
             if posicao["user"] == user:
                 password = input("Digite a senha: ")
                 if descriptografar(posicao["password"]) == password:
-                    print("Login permitido")
+                    # print("Login permitido")
                     return user
                 else:
                     print("Senha inválida")
