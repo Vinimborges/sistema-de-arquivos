@@ -4,8 +4,25 @@ id_dir = 0
 id_diretorioAtual = 0
 
 
-def mkdir(nomeDiretorio, lista_inodes, diretorioAtual):
+def mkdir(nomeDiretorio, lista_inodes, diretorioAtual,usuario_logado):
     # Função que cria um diretório
+    usuario_existe = False
+    usuario = usuario_logado
+    if len(diretorioAtual.split('/')) > 1:
+        usuario = diretorioAtual.split('/')[1]  #ex: home/ryan
+
+    for i, inode in enumerate(lista_inodes):
+        if inode.nome == 'home':
+            for iNodeID in inode.ponteiros_iNodes:
+                for i, inodeF in enumerate(lista_inodes):
+                    if iNodeID == inodeF.id:
+                        if usuario == inodeF.nome:
+                            usuario_existe = True
+    if usuario_existe:
+        criador = usuario
+    else:
+        criador = 'root'
+
 
     data_criacao = date.today() # Pega a data em que o arquivo foi criado
     data_criacao_formatada = data_criacao.strftime('%d/%m/%Y')
@@ -22,7 +39,7 @@ def mkdir(nomeDiretorio, lista_inodes, diretorioAtual):
                         return lista_inodes
 
     # Cria um novo Inode para o diretório
-    lista_inodes.append(Inode(lista_inodes[len(lista_inodes)-1].id+1, nomeDiretorio, "eu", data_criacao_formatada)) # Cria o iNode e adiciona na lista de iNodes
+    lista_inodes.append(Inode(lista_inodes[len(lista_inodes)-1].id+1, nomeDiretorio, criador, data_criacao_formatada)) # Cria o iNode e adiciona na lista de iNodes
     global id_dir
 
     id_dir = lista_inodes[len(lista_inodes)-1].id

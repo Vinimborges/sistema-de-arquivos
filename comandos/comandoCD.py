@@ -1,4 +1,4 @@
-def cd(entrada,diretorioPai,diretorioAtual, lista_inodes):
+def cd(entrada,diretorioPai,diretorioAtual, lista_inodes, usuario_logado):
     if len(entrada) == 1:
             print(f'Missing a argument') 
             return diretorioAtual
@@ -35,7 +35,10 @@ def cd(entrada,diretorioPai,diretorioAtual, lista_inodes):
             if iNodePai.nome == diretorioAtualFinal:
                 for k, filho in enumerate(iNodePai.ponteiros_iNodes):
                     for i,iNode in enumerate(lista_inodes):
-                        if iNode.id == filho and iNode.nome == diretorio:
-                            return diretorioAtual + "/" + iNode.nome
-
+                        if (iNode.dono == usuario_logado or iNode.permissoes_outros[0] == 'r'):
+                            if iNode.id == filho and iNode.nome == diretorio:
+                                return diretorioAtual + "/" + iNode.nome
+                        else:
+                            print("Permission denied")
+                            return diretorioAtual
         return diretorioAtual

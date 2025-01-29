@@ -36,24 +36,39 @@ print(f'Espaço livre para armazenamento: {espaco_livre//1028} MB')
 diretorioAtual = 'home'
 
 if __name__ == "__main__":
+    sair = False
+
     while(True):
-        op = int(input("Digite 1 para cadastrar usuário ou 2 para logar: "))
+        op_test = input("Digite 1 para cadastrar usuário ou 2 para logar: ")
+        if op_test == "kill":
+            break
+        op = int(op_test)
         if op == 1:
             cadastrar_usuario(lista_inodes,lista_users)
         elif op == 2:
-            diretorioAtual = diretorioAtual + '/' + login(lista_users)
-            while(True):    
-                print(diretorioAtual)
-                print('~',Fore.GREEN +'$'+Style.RESET_ALL+'/'+diretorioAtual,end="/ ")
-                comando = input()
-                retorno = tratar_entrada(diretorioAtual,comando,mem,lista_inodes,lista_controle_blocos,lista_blocos,lista_users)
-                if retorno == "kill":
+            usuario_logado = login(lista_users)
+            if usuario_logado != "back":
+                diretorioAtual = diretorioAtual + '/' + usuario_logado
+                while(True):    
+                    # print(diretorioAtual)
+                    print('~',Fore.GREEN +'$'+Style.RESET_ALL+'/'+diretorioAtual,end="/ ")
+                    comando = input()
 
-                    #pegar toda as novas informcoes da lista Inode, Blocos e controle dos blocs e escrever na memoria
-                    break
-                else:
-                    diretorioAtual = retorno  #atualiza o estado do diretorio atual
-            break
+                    if comando == "logout": 
+                        sair = True
+                        break
+
+                    retorno = tratar_entrada(diretorioAtual,comando,mem,lista_inodes,lista_controle_blocos,lista_blocos,lista_users, usuario_logado)
+                    if retorno == "kill":
+                        #pegar toda as novas informcoes da lista Inode, Blocos e controle dos blocs e escrever na memoria
+                        break
+                    else:
+                        diretorioAtual = retorno  #atualiza o estado do diretorio atual
+                if sair:
+                    diretorioAtual = 'home'
+                    pass
+            else:
+                pass
         else: 
             print("Opção inválida")    
         # print(f'Você digitou {comando}')
