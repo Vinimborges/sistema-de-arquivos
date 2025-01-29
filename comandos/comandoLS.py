@@ -1,6 +1,6 @@
 from comandos.permissoes import verificaPermissao
 
-def ls(entrada,diretorioPai,diretorioAtual, lista_inodes, usuario_logado):
+def ls(entrada,diretorioPai,diretorioAtual, lista_inodes,usuario_logado):
     if len(entrada) > 2:
         print('Too much arguments')
         return diretorioAtual
@@ -32,6 +32,7 @@ def ls(entrada,diretorioPai,diretorioAtual, lista_inodes, usuario_logado):
 def data_criacao(data_de_modificacao):
     data = data_de_modificacao.split('/')
     dia = data[0] + " "
+
 
     if data[1] == '01':
         mes = 'Jan'

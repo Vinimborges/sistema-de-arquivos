@@ -1,9 +1,11 @@
 from comandos.comandoTOUCH import touch
 from datetime import date
+from comandos.permissoes import verificaPermissao
+
 
 id_inode = 0
 
-def echo_cria(entrada, lista_inodes, conteudo, lista_controle_blocos, lista_blocos, diretorioAtual):
+def echo_cria(entrada, lista_inodes, conteudo, lista_controle_blocos, lista_blocos, diretorioAtual,usuario_logado):
     # Função que cria um arquivo e adiciona conteúdo nele
     
     lista_conteudo = list(conteudo)
@@ -12,7 +14,7 @@ def echo_cria(entrada, lista_inodes, conteudo, lista_controle_blocos, lista_bloc
 
     # print(lista_conteudo)
         
-    touch(entrada,lista_inodes, diretorioAtual) # Função de criar o arquivo
+    touch(entrada,lista_inodes, diretorioAtual,usuario_logado) # Função de criar o arquivo
     for i,bloco in enumerate(lista_controle_blocos):
         # Aqui adiciona o conteúdo
         if "0" in bloco:
@@ -34,7 +36,7 @@ def echo_cria(entrada, lista_inodes, conteudo, lista_controle_blocos, lista_bloc
                 break
     return lista_inodes, lista_controle_blocos, lista_blocos
 
-def echo_adiciona(entrada, lista_inodes, conteudo, lista_controle_blocos, lista_blocos, diretorioAtual):
+def echo_adiciona(entrada, lista_inodes, conteudo, lista_controle_blocos, lista_blocos, diretorioAtual,usuario_logado):
     # Função que adiciona o conteúdo se o arquivo já existir
     # ou se não existir, cria um arquivo novo
 
@@ -49,28 +51,35 @@ def echo_adiciona(entrada, lista_inodes, conteudo, lista_controle_blocos, lista_
         if diretorioAtual.split("/")[-1] == inode.nome:
             # if entrada in inode.ponteiros_iNodes:
             if len(inode.ponteiros_iNodes) == 0:
-                return echo_cria(entrada, lista_inodes, conteudo, lista_controle_blocos, lista_blocos, diretorioAtual)
+                return echo_cria(entrada, lista_inodes, conteudo, lista_controle_blocos, lista_blocos, diretorioAtual,usuario_logado)
             for j, inode_filho in enumerate(inode.ponteiros_iNodes):
                 for indice, inode_da_lista in enumerate(lista_inodes):
                     if inode_filho == 'vazio':
-                        return echo_cria(entrada, lista_inodes, conteudo, lista_controle_blocos, lista_blocos, diretorioAtual)
+                        return echo_cria(entrada, lista_inodes, conteudo, lista_controle_blocos, lista_blocos, diretorioAtual,usuario_logado)
 
-                    elif inode_filho == inode_da_lista.id and entrada == inode_da_lista.nome:
+                    elif inode_filho == inode_da_lista.id and entrada == inode_da_lista.nome:   
                         global id_inode
                         id_inode = inode_da_lista.id
-                        for ind_bloco, bloco in enumerate(inode_da_lista.ponteiros_blocos):
-                            # Encontra algum bloco que ainda pode ser adicionado texto
-                            conteudo_bloco = list(lista_blocos[bloco])
-                            for k, letra in enumerate(conteudo_bloco):
-                                if letra == '\x00':
-                                    l = k
-                                    while(len(lista_conteudo) != 0):
-                                        conteudo_bloco[l] = lista_conteudo.pop(0)
-                                        l += 1
-                                        print("".join(conteudo_bloco))
+                        permissoes = verificaPermissao(usuario_logado, lista_inodes,inode_da_lista.id)
+                        if "w" in permissoes:
+                            
+                            for ind_bloco, bloco in enumerate(inode_da_lista.ponteiros_blocos):
+                                # Encontra algum bloco que ainda pode ser adicionado texto
+                                conteudo_bloco = list(lista_blocos[bloco])
+                                for k, letra in enumerate(conteudo_bloco):
+                                    if letra == '\x00':
+                                        l = k
+                                        while(len(lista_conteudo) != 0):
+                                            conteudo_bloco[l] = lista_conteudo.pop(0)
+                                            l += 1
+                                            # print("".join(conteudo_bloco))
+                                        lista_blocos[bloco] = conteudo_bloco
+                        else:
+                            print("Usuário não possui permissão para escrever")
+                            return lista_inodes, lista_controle_blocos, lista_blocos
                     elif indice == len(lista_inodes)-1:
                         print("chegou")
-                        return echo_cria(entrada, lista_inodes, conteudo, lista_controle_blocos, lista_blocos, diretorioAtual) 
+                        return echo_cria(entrada, lista_inodes, conteudo, lista_controle_blocos, lista_blocos, diretorioAtual,usuario_logado) 
 
                                     # print(conteudo_bloco)
                         #         if len(lista_conteudo) == 0:
@@ -82,29 +91,30 @@ def echo_adiciona(entrada, lista_inodes, conteudo, lista_controle_blocos, lista_
                         # if len(lista_conteudo) == 0:
                         #     lista_blocos[bloco] = conteudo_bloco
                         #     break  
-            
-                for k,bloco in enumerate(lista_controle_blocos):
-                    # Se todos os blocos estiverem cheio, adiciona em um bloco vazio
-                    if "0" in bloco:
-                        conteudo_bloco = list(lista_blocos[i])
-                        print(f'Bloco {k} está livre, será adicionado conteúdo aqui')
-                        lista_controle_blocos[k] = "1"
-                        for y in range(len(lista_conteudo)):
-                            # print(lista_conteudo.pop(0))
-                            conteudo_bloco[y] = lista_conteudo.pop(0)
-                            
-                        lista_blocos[k] = conteudo_bloco
-                        # print(lista_blocos[k])
-                        for z,inode1 in enumerate(lista_inodes):
-                            print(id_inode)
-                            if id_inode == inode1.id:
-                                # print(lista_inodes[z].ponteiros_blocos)
-                                lista_inodes[z].ponteiros_blocos.append(k)
-                                # print(lista_inodes[z].ponteiros_blocos)
-                        if len(lista_conteudo) == 0:
-                            lista_inodes[i].tam = str(len(lista_inodes[i].ponteiros_blocos)*4) #Adiciona o tamanho do arquivo no iNode
-                            print(f'Tamanho do arquivo {lista_inodes[i].nome}: {lista_inodes[i].tam}MB')
-                            break
+                if len(lista_conteudo) > 0:
+                    
+                    for k,bloco in enumerate(lista_controle_blocos):
+                        # Se todos os blocos estiverem cheio, adiciona em um bloco vazio
+                        if "0" in bloco:
+                            conteudo_bloco = list(lista_blocos[i])
+                            print(f'Bloco {k} está livre, será adicionado conteúdo aqui')
+                            lista_controle_blocos[k] = "1"
+                            for y in range(len(lista_conteudo)):
+                                # print(lista_conteudo.pop(0))
+                                conteudo_bloco[y] = lista_conteudo.pop(0)
+                                
+                            lista_blocos[k] = conteudo_bloco
+                            # print(lista_blocos[k])
+                            for z,inode1 in enumerate(lista_inodes):
+                                print(id_inode)
+                                if id_inode == inode1.id:
+                                    # print(lista_inodes[z].ponteiros_blocos)
+                                    lista_inodes[z].ponteiros_blocos.append(k)
+                                    # print(lista_inodes[z].ponteiros_blocos)
+                            if len(lista_conteudo) == 0:
+                                lista_inodes[i].tam = str(len(lista_inodes[i].ponteiros_blocos)*4) #Adiciona o tamanho do arquivo no iNode
+                                print(f'Tamanho do arquivo {lista_inodes[i].nome}: {lista_inodes[i].tam}MB')
+                                break
                 lista_inodes[i].data_de_modificacao = data_modificacao_formatada # Adiciona a data de modificação no iNode
     #print("ECHO: ", lista_blocos[0])
     return lista_inodes, lista_controle_blocos, lista_blocos

@@ -33,18 +33,18 @@ def tratar_entrada(diretorioAtual,read,mem,lista_inodes,lista_controle_blocos,li
         # print(lista_inodes[len(lista_inodes)-1].criador)
         touch(entrada[1], lista_inodes, diretorioAtual,usuario_logado)
         # print(lista_inodes[len(lista_inodes)-1].criador)
-        return diretorioAtual
+        return diretorioAtual 
     
     # Bia (OK) (OK)
     elif "rmdir" in read: # verificar se ponteiros iNode esta vazia e olhar o pai
-        rmdir(entrada[1], lista_inodes, diretorioAtual)
+        rmdir(entrada[1], lista_inodes, diretorioAtual,usuario_logado)
         return diretorioAtual
     
     # VINI (ok) (ok)
     elif "rm" in read: # Remove arquivo
         # procura pelo nome remove da lista temporaria
         print(f'Nome do arquivo excluído: {entrada[1]}')
-        rm(entrada[1], diretorioAtual, lista_inodes, lista_controle_blocos)
+        rm(entrada[1], diretorioAtual, lista_inodes, lista_controle_blocos,usuario_logado)
         return diretorioAtual
 
     # VINI (OK) (ok)
@@ -54,17 +54,17 @@ def tratar_entrada(diretorioAtual,read,mem,lista_inodes,lista_controle_blocos,li
         print(type(entrada_echo))
         conteudo = entrada_echo[0].split('"')
         if len(entrada_echo) == 2: #Cria um arquivo já adicionando conteúdo
-            echo_cria(entrada_echo[2].replace(" ", ""), lista_inodes, conteudo[1], lista_controle_blocos, lista_blocos, diretorioAtual)
+            echo_cria(entrada_echo[1].replace(" ", ""), lista_inodes, conteudo[1], lista_controle_blocos, lista_blocos, diretorioAtual,usuario_logado)
             # print("um")
         elif len(entrada_echo) == 3: #Adiciona conteúdo a um arquivo existente ou cria caso não exista
-            echo_adiciona(entrada_echo[2].replace(" ", ""), lista_inodes, conteudo[1], lista_controle_blocos, lista_blocos, diretorioAtual)
+            echo_adiciona(entrada_echo[2].replace(" ", ""), lista_inodes, conteudo[1], lista_controle_blocos, lista_blocos, diretorioAtual,usuario_logado)
             # print("dois")
         return diretorioAtual
 
     # Ksnoh (OK) (OK)
     elif "cat" in read: # Lê o arquivo
         # olhar pro iNode e ir na posicao da lista do block
-        cat(entrada[1], diretorioAtual, lista_blocos, lista_inodes)
+        cat(entrada[1], diretorioAtual, lista_blocos, lista_inodes,usuario_logado)
         return diretorioAtual
 
     # Ksnoh (nao testei)
@@ -94,7 +94,8 @@ def tratar_entrada(diretorioAtual,read,mem,lista_inodes,lista_controle_blocos,li
             
     # Ryan (OK) (ok)
     elif "ls" in read:  # listar os nome dos ponteiros iNodes
-        return ls(entrada, diretorioPai, diretorioAtual, lista_inodes, usuario_logado)
+
+        return ls(entrada, diretorioPai, diretorioAtual, lista_inodes,usuario_logado)
             
     # Ryan (OK) (ok)
     elif "cd" in read:  # mover para o bloco do iNode selecionado da lista de iNodes (. permanece no mesmo diretorio, .. move um diretorio para tras)
