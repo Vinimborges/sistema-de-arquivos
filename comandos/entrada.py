@@ -36,6 +36,7 @@ def tratar_entrada(diretorioAtual,read,mem,lista_inodes,lista_controle_blocos,li
     
     # print(f'Diretorio pai: {diretorioPai}')
     entrada = read.split()
+    print('dir atual:', diretorioAtual)
 
     # VINI (OK) (ok)
     if "touch" in read: # Cria arquivo
@@ -96,7 +97,7 @@ def tratar_entrada(diretorioAtual,read,mem,lista_inodes,lista_controle_blocos,li
 
     # Bia (nao testei)
     elif "ln" in read: #cria um Inode com os mesmos ponteiros (link)
-        ln(entrada[3], entrada[2], lista_inodes, diretorioAtual)
+        ln(entrada[2], entrada[1], lista_inodes, diretorioAtual)
         return diretorioAtual
         
     # Bia (OK)  (ok)
