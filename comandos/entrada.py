@@ -31,7 +31,7 @@ def tratar_entrada(diretorioAtual,read,mem,lista_inodes,lista_controle_blocos,li
     # VINI (OK) (ok)
     if "touch" in read: # Cria arquivo
         # print(lista_inodes[len(lista_inodes)-1].criador)
-        touch(entrada[1], lista_inodes, diretorioAtual)
+        touch(entrada[1], lista_inodes, diretorioAtual,usuario_logado)
         # print(lista_inodes[len(lista_inodes)-1].criador)
         return diretorioAtual
     
@@ -74,15 +74,12 @@ def tratar_entrada(diretorioAtual,read,mem,lista_inodes,lista_controle_blocos,li
         cp(entrada[1], entrada[2], lista_blocos, lista_inodes, lista_controle_blocos, diretorioAtual)
         return diretorioAtual
         
-    # Ryan (OK) (OK)
     elif "mv" in read: #Move/Renomeia arquivos
         if "/" in entrada[1]:
             sep = entrada[1].split("/")
-            # print(f'Movendo o arquivo:{sep[0]} para o diretório: {sep[1]}')
-            mv(diretorioAtual, diretorioPai, lista_inodes, lista_blocos, sep)
+            mv(diretorioAtual, diretorioPai, lista_inodes, lista_blocos, sep, usuario_logado)
         else:
-            # print(f'Renomeando o arquivo {entrada[1]} para {entrada[2]}')
-            mv_Renomear(diretorioAtual, entrada, lista_inodes)
+            mv_Renomear(diretorioAtual, entrada, lista_inodes, usuario_logado)
         return diretorioAtual
 
     # Bia (nao testei)
