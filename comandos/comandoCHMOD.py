@@ -54,7 +54,7 @@ def controlePermissoes(permissao):
     elif permissaoDono == 5:
         permissaoDono = 'r+-+x'
     elif permissaoDono == 4:
-        permissaoDono = 'r+-+x'
+        permissaoDono = 'r+---'
     elif permissaoDono == 3:
         permissaoDono = 'r--+x'
     elif permissaoDono == 2:

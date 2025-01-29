@@ -1,5 +1,6 @@
+from comandos.permissoes import verificaPermissao
 
-def ls(entrada,diretorioPai,diretorioAtual, lista_inodes):
+def ls(entrada,diretorioPai,diretorioAtual, lista_inodes,usuario_logado):
     if len(entrada) > 2:
         print('Too much arguments')
         return diretorioAtual
@@ -33,18 +34,27 @@ def ls(entrada,diretorioPai,diretorioAtual, lista_inodes):
                                     for ids in iNodeFilhoDir.ponteiros_iNodes:
                                         for m, iNodeP in enumerate(lista_inodes):
                                             if ids == iNodeP.id:
-                                                if iNodeP.dono == usuario_atual:
-                                                    if iNodeP.permissoes_dono.split('+')[0] == 'r':
-                                                        if mostrar_permissoes: 
-                                                            print(iNodeP.permissoes_dono,iNodeP.permissoes_outros," ", iNodeP.nome)
-                                                        else:
-                                                            print(iNodeP.nome)
-                                                else: # Caso nao seja o dono 
-                                                    if iNodeP.permissoes_outros.split('+')[0] == 'r':
-                                                        if mostrar_permissoes: 
-                                                            print(iNodeP.permissoes_dono,iNodeP.permissoes_outros," ", iNodeP.nome)
-                                                        else:
-                                                            print(iNodeP.nome)
+                                                permissoes = verificaPermissao(usuario_logado,lista_inodes,ids)
+                                                
+                                                if "r" in permissoes:
+                                                    print(permissoes)
+                                                    if mostrar_permissoes: 
+                                                        print(iNodeP.permissoes_dono,iNodeP.permissoes_outros," ", iNodeP.nome)
+                                                    else:
+                                                        print(iNodeP.nome)
+                                                
+                                                # if iNodeP.dono == usuario_atual:
+                                                #     if iNodeP.permissoes_dono.split('+')[0] == 'r':
+                                                #         if mostrar_permissoes: 
+                                                #             print(iNodeP.permissoes_dono,iNodeP.permissoes_outros," ", iNodeP.nome)
+                                                #         else:
+                                                #             print(iNodeP.nome)
+                                                # else: # Caso nao seja o dono 
+                                                #     if iNodeP.permissoes_outros.split('+')[0] == 'r':
+                                                #         if mostrar_permissoes: 
+                                                #             print(iNodeP.permissoes_dono,iNodeP.permissoes_outros," ", iNodeP.nome)
+                                                #         else:
+                                                #             print(iNodeP.nome)
 
     return diretorioAtual   
     

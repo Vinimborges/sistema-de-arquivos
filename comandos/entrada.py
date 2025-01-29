@@ -42,11 +42,11 @@ def tratar_entrada(diretorioAtual,read,mem,lista_inodes,lista_controle_blocos,li
         # print(lista_inodes[len(lista_inodes)-1].criador)
         touch(entrada[1], lista_inodes, diretorioAtual,usuario_logado)
         # print(lista_inodes[len(lista_inodes)-1].criador)
-        return diretorioAtual
+        return diretorioAtual 
     
     # Bia (OK) (OK)
     elif "rmdir" in read: # verificar se ponteiros iNode esta vazia e olhar o pai
-        rmdir(entrada[1], lista_inodes, diretorioAtual)
+        rmdir(entrada[1], lista_inodes, diretorioAtual,usuario_logado)
         return diretorioAtual
     
     # VINI (ok) (ok)
@@ -73,7 +73,7 @@ def tratar_entrada(diretorioAtual,read,mem,lista_inodes,lista_controle_blocos,li
     # Ksnoh (OK) (OK)
     elif "cat" in read: # Lê o arquivo
         # olhar pro iNode e ir na posicao da lista do block
-        cat(entrada[1], diretorioAtual, lista_blocos, lista_inodes)
+        cat(entrada[1], diretorioAtual, lista_blocos, lista_inodes,usuario_logado)
         return diretorioAtual
 
     # Ksnoh (nao testei)
@@ -106,7 +106,7 @@ def tratar_entrada(diretorioAtual,read,mem,lista_inodes,lista_controle_blocos,li
             
     # Ryan (OK) (ok)
     elif "ls" in read:  # listar os nome dos ponteiros iNodes
-        return ls(entrada, diretorioPai, diretorioAtual, lista_inodes)
+        return ls(entrada, diretorioPai, diretorioAtual, lista_inodes,usuario_logado)
             
     # Ryan (OK) (ok)
     elif "cd" in read:  # mover para o bloco do iNode selecionado da lista de iNodes (. permanece no mesmo diretorio, .. move um diretorio para tras)

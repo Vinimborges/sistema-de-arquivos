@@ -1,8 +1,9 @@
 from i_node import Inode
+from comandos.permissoes import verificaPermissao
 
 # funcao para retornar o id diretorio que deve ser removido caso esteja vazio
 def encontra_arquivo(entrada,diretorioAtual, lista_inodes):
-    id = None
+    id_inode = None
     idPai = None
     caminho = diretorioAtual.split("/")
 
@@ -14,26 +15,33 @@ def encontra_arquivo(entrada,diretorioAtual, lista_inodes):
                     for j,inodeP in enumerate(lista_inodes):
                         if posicao == len(caminho) - 1:
                             if inodeP.id == filhos and inodeP.nome == entrada:
-                                id = inodeP.id 
+                                id_inode = inodeP.id 
                                 idPai = inode.id
-    print("id:",id)
+    print("id:",id_inode)
     print("idPAI:",idPai)
-    return id, idPai
+    return id_inode, idPai
 
-def rmdir(nomeDiretorio, lista_inodes, diretorioAtual):
+def rmdir(nomeDiretorio, lista_inodes, diretorioAtual,usuario_logado):
 
-    id, idPai= encontra_arquivo(nomeDiretorio, diretorioAtual, lista_inodes)
+    id_inode, idPai= encontra_arquivo(nomeDiretorio, diretorioAtual, lista_inodes)
     
-    if id != None and idPai != None:
+    if id_inode != None and idPai != None:
         for i,iNode in enumerate(lista_inodes):
-            if iNode.id == id:
-                print("aqui",iNode.ponteiros_iNodes)
-                if iNode.ponteiros_iNodes[0] == "vazio" or iNode.ponteiros_iNodes[0] == []:
-                    for j,iNodePai in enumerate(lista_inodes):
-                        if iNodePai.id == idPai:
-                            iNodePai.ponteiros_iNodes.remove(id)
-                else:
-                    print("Diretório não está vazio")
+            if iNode.id == id_inode:
+                permissoes = verificaPermissao(usuario_logado,lista_inodes,iNode.id)
+                
+                if "w" in permissoes:
+                
+                    print("aqui",iNode.ponteiros_iNodes)
+                    if iNode.ponteiros_iNodes[0] == "vazio" or iNode.ponteiros_iNodes[0] == []:
+                        lista_inodes.remove(id_inode)
+                        for j,iNodePai in enumerate(lista_inodes):
+                            if iNodePai.id == idPai:
+                                iNodePai.ponteiros_iNodes.remove(id_inode)
+                    else:
+                        print("Diretório não está vazio")
+                else: 
+                    print("O usuário não possui permissão")
     else:
         print("Diretório não encontrado")
     # Função que remove um diretório
