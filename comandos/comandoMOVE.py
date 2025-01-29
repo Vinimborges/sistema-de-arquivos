@@ -97,7 +97,9 @@ def mv_Renomear(diretorioAtual,entrada, lista_inodes, usuario_logado):
 
     for i,iNode in enumerate(lista_inodes):
         if iNode.id == id:
-            iNode.nome = novo_nome
+            permissao = verificaPermissao(usuario_logado,lista_inodes,id)
+            if "w" in permissao:
+                iNode.nome = novo_nome
     return lista_inodes
 
 
