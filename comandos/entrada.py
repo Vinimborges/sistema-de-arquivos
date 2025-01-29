@@ -18,15 +18,6 @@ from comandos.comandoRMDIR import rmdir
 from comandos.comandoMOVE import mv, mv_Renomear
 from comandos.comandoCHMOD import chmod
 
-
-
-# print(lista_blocos[len(lista_blocos)-1])
-# print(len(lista_blocos))
-
-
-        
-
-
 def tratar_entrada(diretorioAtual,read,mem,lista_inodes,lista_controle_blocos,lista_blocos,lista_users, usuario_logado): 
     if diretorioAtual.count("/") == 1: #home
             diretorioPai = '/home'
@@ -83,15 +74,12 @@ def tratar_entrada(diretorioAtual,read,mem,lista_inodes,lista_controle_blocos,li
         cp(entrada[1], entrada[2], lista_blocos, lista_inodes, lista_controle_blocos, diretorioAtual)
         return diretorioAtual
         
-    # Ryan (OK) (OK)
     elif "mv" in read: #Move/Renomeia arquivos
         if "/" in entrada[1]:
             sep = entrada[1].split("/")
-            # print(f'Movendo o arquivo:{sep[0]} para o diretório: {sep[1]}')
-            mv(diretorioAtual, diretorioPai, lista_inodes, lista_blocos, sep)
+            mv(diretorioAtual, diretorioPai, lista_inodes, lista_blocos, sep, usuario_logado)
         else:
-            # print(f'Renomeando o arquivo {entrada[1]} para {entrada[2]}')
-            mv_Renomear(diretorioAtual, entrada, lista_inodes)
+            mv_Renomear(diretorioAtual, entrada, lista_inodes, usuario_logado)
         return diretorioAtual
 
     # Bia (nao testei)
@@ -101,16 +89,17 @@ def tratar_entrada(diretorioAtual,read,mem,lista_inodes,lista_controle_blocos,li
         
     # Bia (OK)  (ok)
     elif "mkdir" in read: # Cria um diretório e nao tem extesao(criar um inode)
-        mkdir(entrada[1], lista_inodes, diretorioAtual)
+        mkdir(entrada[1], lista_inodes, diretorioAtual,usuario_logado)
         return diretorioAtual
             
     # Ryan (OK) (ok)
     elif "ls" in read:  # listar os nome dos ponteiros iNodes
+
         return ls(entrada, diretorioPai, diretorioAtual, lista_inodes,usuario_logado)
             
     # Ryan (OK) (ok)
     elif "cd" in read:  # mover para o bloco do iNode selecionado da lista de iNodes (. permanece no mesmo diretorio, .. move um diretorio para tras)
-        return cd(entrada, diretorioPai, diretorioAtual, lista_inodes)
+        return cd(entrada, diretorioPai, diretorioAtual, lista_inodes, usuario_logado)
 
     # Ryan (OK) (ok)
     elif "clear" in read: # encerra o programa
@@ -120,6 +109,10 @@ def tratar_entrada(diretorioAtual,read,mem,lista_inodes,lista_controle_blocos,li
         chmod(entrada, diretorioAtual, lista_inodes, usuario_logado)
         return diretorioAtual
         
+    elif "whoami" in read:
+        print(usuario_logado)
+        return diretorioAtual 
+
     #      (OK) (ok)
     elif ("kill" in read) or ("exit" in read): # encerra o programa           
         # print("Programa encerrado")

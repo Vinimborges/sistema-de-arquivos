@@ -1,3 +1,5 @@
+from comandos.permissoes import verificaPermissao
+
 def chmod(entrada, diretorioAtual, lista_inodes, usuario_logado):
     if len(entrada) < 3:
         print('Missing arguments')
@@ -10,37 +12,24 @@ def chmod(entrada, diretorioAtual, lista_inodes, usuario_logado):
         diretorioPai = caminho[-1]
 
     diretorioAtuall = caminho[-1]
-    usuario_atual = caminho[-1]
-    # print("Dir Pai: ", diretorioPai)
-    # print("Dir Atual: ", diretorioAtual)
-    # print("Usuario Atual: ",usuario_atual)
 
-    # print("entrada",entrada)
     arquivo_diretorio = entrada[2]
     permissao = entrada[1]
     permissaoDono, permissaoOutros = controlePermissoes(permissao)
 
-    #Percorrer
-    for i,iNodePai in enumerate(lista_inodes):
-        if diretorioPai == iNodePai.nome:
-            for idFilho in iNodePai.ponteiros_iNodes:
-                for j,iNodeFilho in enumerate(lista_inodes):
-                    if idFilho == iNodeFilho.id:
-                        # if diretorioAtual == "home":
-                        #     print(iNodeFilho.nome)
-                        if iNodeFilho.nome == diretorioAtuall:
-                            for l,iNodeFilhoDir in enumerate(lista_inodes):
-                                if iNodeFilhoDir.id == iNodeFilho.id:
-                                    for ids in iNodeFilhoDir.ponteiros_iNodes:
-                                        for m, iNodeP in enumerate(lista_inodes):
-                                            if ids == iNodeP.id:
-                                                if iNodeP.dono == usuario_logado or iNodeP.permissoes_outros[2] == 'w': # Verifica se tem permissao 
-                                                    if iNodeP.nome == arquivo_diretorio:
-                                                        iNodeP.permissoes_dono = permissaoDono
-                                                        iNodeP.permissoes_outros = permissaoOutros
-                                                else:
-                                                    print("Permission denied")
-    return diretorioAtual
+    for i, inode in enumerate(lista_inodes):
+        if diretorioAtual.split("/")[-1] in inode.nome:
+            for id in inode.ponteiros_iNodes:
+                for j, iNodeFilhos in enumerate(lista_inodes):
+                    if iNodeFilhos.id == id:
+                        permissoes = verificaPermissao(usuario_logado,lista_inodes,iNodeFilhos.id)
+                        if "w" in permissoes:
+                            if iNodeFilhos.nome == arquivo_diretorio:
+                                iNodeFilhos.permissoes_dono = permissaoDono
+                                iNodeFilhos.permissoes_outros = permissaoOutros
+                        else:
+                            print("Permission denied")
+    return diretorioAtual   
 
 
 def controlePermissoes(permissao):
@@ -81,6 +70,4 @@ def controlePermissoes(permissao):
     elif permissaoOutros == 0:
         permissaoOutros = '---'
 
-    # print("permissao Dono:",permissaoDono)
-    # print("permissao Outros:",permissaoOutros)
     return permissaoDono, permissaoOutros
