@@ -17,6 +17,7 @@ from comandos.comandoLN import ln
 from comandos.comandoRMDIR import rmdir
 from comandos.comandoMOVE import mv, mv_Renomear
 from comandos.comandoCHMOD import chmod
+from comandos.comandoCHOWN import chown
 
 def tratar_entrada(diretorioAtual,read,mem,lista_inodes,lista_controle_blocos,lista_blocos,lista_users, usuario_logado): 
     if diretorioAtual.count("/") == 1: #home
@@ -27,7 +28,6 @@ def tratar_entrada(diretorioAtual,read,mem,lista_inodes,lista_controle_blocos,li
     
     # print(f'Diretorio pai: {diretorioPai}')
     entrada = read.split()
-    print('dir atual:', diretorioAtual)
 
     # VINI (OK) (ok)
     if "touch" in read: # Cria arquivo
@@ -109,6 +109,10 @@ def tratar_entrada(diretorioAtual,read,mem,lista_inodes,lista_controle_blocos,li
     elif "chmod" in read:
         chmod(entrada, diretorioAtual, lista_inodes, usuario_logado)
         return diretorioAtual
+    
+    elif "chown" in read:   # altera o dono do iNode
+        chown(entrada, diretorioPai, diretorioAtual, lista_inodes, usuario_logado, lista_users)
+        return diretorioAtual
         
     elif "whoami" in read:
         print(usuario_logado)
@@ -117,7 +121,7 @@ def tratar_entrada(diretorioAtual,read,mem,lista_inodes,lista_controle_blocos,li
     #      (OK) (ok)
     elif ("kill" in read) or ("exit" in read): # encerra o programa           
         # print("Programa encerrado")
-        gravar_no_disco(mem,lista_controle_blocos,lista_inodes,lista_blocos,lista_users) # Função que grava o conteúdo no disco após o programa ser encerrado
+        gravar_no_disco(mem, lista_controle_blocos, lista_inodes, lista_blocos, lista_users) # Função que grava o conteúdo no disco após o programa ser encerrado
         return "kill"
     
     else:
