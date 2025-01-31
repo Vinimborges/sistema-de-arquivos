@@ -1,26 +1,15 @@
 
-# Sistema de Arquivos 
+# Segurança no sistema de arquivos 
 
-Este trabalho tem como objetivo desenvolver um sistema de arquivos baseado em i-nodes.
+Este projeto implementa mecanismos de segurança em um sistema de arquivos, permitindo o gerenciamento de múltiplos usuários, cada um com sua própria área de armazenamento (home do usuário). Todos os arquivos e diretórios possuem um usuário proprietário associado, bem como permissões de acesso que definem se operações de leitura e escrita podem ser realizadas.
 ## Features
 
-### Operações sobre arquivos:
-- Criar arquivo (touch arquivo)
-- Remover arquivo (rm arquivo)
-- Criar um arquivo já adicionando conteúdo (echo "conteúdo legal" > arquivo)
-- Adicionar conteúdo a um arquivo existente ou criá-lo caso não exista (echo "conteudo legal" >> arquivo)
-- Ler arquivo (cat arquivo)
-- Copiar arquivo (cp arquivo1 arquivo2)
-- Renomear/mover arquivo (mv arquivo1 arquivo2)
-- Criar links entre arquivos (ln -s arquivoOriginal link)
-
-### Operações sobre diretórios:
--  Criar diretório (mkdir diretorio)
-- Remover diretório (rmdir diretorio)
-- Listar o conteúdo de um diretório (ls diretório)
-- Trocar de diretório (cd diretorio)
-- Renomear/mover diretório (mv diretorio1 diretorio2)
-- Criar links entre diretório (ln -s arquivoOriginal link)
+- Gerenciamento de múltiplos usuários com senhas seguras.
+- Definição de permissões de leitura e escrita para arquivos e diretórios.
+- Comandos chmod para alteração de permissões.
+- Comando chown para modificação do dono do arquivo ou diretório.
+- Armazenamento seguro de senhas, sem uso de texto plano.
+- Proteção do arquivo de senhas contra acesso não autorizado.
 
 ## Installation
 
