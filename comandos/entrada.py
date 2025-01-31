@@ -1,6 +1,3 @@
-
-
-
 from manipulacaoArquivos.gravarNoDisco import gravar_no_disco
 
 # Import dos comandos
@@ -71,7 +68,7 @@ def tratar_entrada(diretorioAtual,read,mem,lista_inodes,lista_controle_blocos,li
     elif "cp" in read: #Copia arquivo
         # ao criar o iNode copia o bloco do outro iNode
         print(f'Copiando o arquivo {entrada[1]} para o arquivo {entrada[2]}')
-        cp(entrada[1], entrada[2], lista_blocos, lista_inodes, lista_controle_blocos, diretorioAtual)
+        cp(entrada[1], entrada[2], lista_blocos, lista_inodes, lista_controle_blocos, diretorioAtual, usuario_logado)
         return diretorioAtual
         
     elif "mv" in read: #Move/Renomeia arquivos
