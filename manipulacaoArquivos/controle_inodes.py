@@ -11,13 +11,13 @@ def Controle_inodes(lista_conteudo_disco):
             temp.pop(0)
             for i, temp in enumerate(temp):
                 temp1 = temp.split(",")
-                print(temp1)
+                # print(temp1)
                 if(temp1[0] != '\x00' and len(temp1) > 1):
                     id_inode = int(temp1.pop(0))
                     nome = temp1.pop(0)
                     criador = temp1.pop(0)
                     inode = Inode(id_inode, nome, criador, temp1.pop(2))
-                    print(inode.data_de_criacao)
+                    # print(inode.data_de_criacao)
                     inode.dono = temp1.pop(0)
                     inode.tam = temp1.pop(0)
                     inode.data_de_modificacao = temp1.pop(0)
