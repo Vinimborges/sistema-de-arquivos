@@ -22,13 +22,15 @@ def chmod(entrada, diretorioAtual, lista_inodes, usuario_logado):
             for id in inode.ponteiros_iNodes:
                 for j, iNodeFilhos in enumerate(lista_inodes):
                     if iNodeFilhos.id == id:
+                        print("DONO:",iNodeFilhos.dono)
                         permissoes = verificaPermissao(usuario_logado,lista_inodes,iNodeFilhos.id)
-                        if "w" in permissoes:
-                            if iNodeFilhos.nome == arquivo_diretorio:
+                        if iNodeFilhos.nome == arquivo_diretorio:
+                            if "w" in permissoes:
+                                print("NOME:",iNodeFilhos.nome)
                                 iNodeFilhos.permissoes_dono = permissaoDono
                                 iNodeFilhos.permissoes_outros = permissaoOutros
-                        else:
-                            print("Permission denied")
+                            else:
+                                print("Permission denied")
     return diretorioAtual   
 
 
