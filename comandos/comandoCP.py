@@ -85,7 +85,7 @@ def sobrescreve(entrada, conteudo, lista_blocos, lista_inodes, lista_controle_bl
                             lista_blocos[k] = conteudo_bloco
                             # print(lista_blocos[k])
                             for z,inode1 in enumerate(lista_inodes):
-                                print(id_inode)
+                                # print(id_inode)
                                 if id_inode == inode1.id:
                                     # print(lista_inodes[z].ponteiros_blocos)
                                     lista_inodes[z].ponteiros_blocos.append(k)

@@ -108,7 +108,7 @@ def tratar_entrada(diretorioAtual,read,mem,lista_inodes,lista_controle_blocos,li
         return diretorioAtual
     
     elif "chown" in read:   # altera o dono do iNode
-        chown(entrada, diretorioPai, diretorioAtual, lista_inodes, usuario_logado, lista_users)
+        chown(entrada, diretorioPai, diretorioAtual, lista_inodes, lista_users, usuario_logado)
         return diretorioAtual
         
     elif "whoami" in read:

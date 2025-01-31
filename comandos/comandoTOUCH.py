@@ -31,14 +31,14 @@ def touch(entrada, lista_inodes, diretorioAtual,usuario_logado):
     # nome nao tem extensao, vira .txt
     if len(entrada.split(".")) == 1:
         entrada = entrada + '.txt'
-        print(entrada)
+        # print(entrada)
     for i, inode in enumerate(lista_inodes):
         # print(inode)
         if diretorioAtual.split("/")[-1] in inode.nome:
             permissoes = verificaPermissao(usuario_logado,lista_inodes,inode.id)
             
             if "w" in permissoes:
-                print(permissoes)
+                # print(permissoes)
                 # Adiciona um ponteiro para esse novo iNode, no diretório atual
                 for pos_inode, ponteiro_Inode in enumerate(inode.ponteiros_iNodes):
                     for ind_inode, inode_acessado in enumerate(lista_inodes):  
@@ -49,9 +49,9 @@ def touch(entrada, lista_inodes, diretorioAtual,usuario_logado):
                 lista_inodes.append(Inode(lista_inodes[len(lista_inodes)-1].id + 1,entrada, criador, data_criacao_formatada)) # Cria o iNode e adiciona na lista de iNodes
                 if len(lista_inodes[i].ponteiros_iNodes) == 1 and lista_inodes[i].ponteiros_iNodes[0] == 'vazio':
                     lista_inodes[i].ponteiros_iNodes.pop(0)
-                print(f'Adicionado o iNode {entrada}, no iNode {inode.nome}')
+                # print(f'Adicionado o iNode {entrada}, no iNode {inode.nome}')
                 lista_inodes[i].ponteiros_iNodes.append(lista_inodes[len(lista_inodes)-1].id)
-                print(f'Lista de ponteiros Inodes do Inode {inode.nome}: {lista_inodes[i].ponteiros_iNodes}')
+                # print(f'Lista de ponteiros Inodes do Inode {inode.nome}: {lista_inodes[i].ponteiros_iNodes}')
                 print(f'Nome do arquivo criado: {lista_inodes[len(lista_inodes)-1].nome}')
             else:
                 print("O usuário não possui permissão para criar um novo arquivo")

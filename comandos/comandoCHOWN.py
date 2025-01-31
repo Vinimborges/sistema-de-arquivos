@@ -13,9 +13,15 @@ def chown(entrada, diretorioPai, diretorioAtual, lista_inodes, lista_users, usua
     arquivo_diretorio = entrada[2]
 
     # verifica se o nome do novo dono esta na lista de usuários
-    if entrada[1] not in lista_users:
+    usuarios = []
+    for i in lista_users:
+        usuarios.append(i["user"])
+
+
+    if entrada[1] not in usuarios:
         print("Erro: usuário inválido")
-        return False
+        return
+
 
     # Verifica se nome do iNode existe
     for inode in lista_inodes:
@@ -25,7 +31,7 @@ def chown(entrada, diretorioPai, diretorioAtual, lista_inodes, lista_users, usua
                     if iNodeFilhos.id == id:
                         inode_exist = True
                         permissoes = verificaPermissao(usuario_logado,lista_inodes,iNodeFilhos.id)
-                        print(permissoes)
+                        # print(permissoes)
                         # se o iNode tiver permissão de escrita (w)
                         if "w" in permissoes:
                             if iNodeFilhos.nome == arquivo_diretorio:
